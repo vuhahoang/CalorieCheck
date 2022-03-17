@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.caloriecheck">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CalorieCheck">
+        <activity android:name=".learn2"></activity>
+        <activity android:name=".learn1" />
+        <activity android:name=".Notes" />
+        <activity android:name=".FoodSave" />
+        <activity android:name=".Signup" />
+        <activity android:name=".Login" />
+        <activity android:name=".FoodInfo" />
+        <activity android:name=".Add_Food_Activity" />
+        <activity android:name=".CustomFood" />
+        <activity android:name=".Home" />
+        <activity android:name=".questionsix" />
+        <activity android:name=".questionfive" />
+        <activity android:name=".questionfour" />
+        <activity android:name=".questionthree" />
+        <activity android:name=".questiontwo" />
+        <activity android:name=".questionone" />
+        <activity android:name=".Hello" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
