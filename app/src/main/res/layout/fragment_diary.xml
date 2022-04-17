@@ -685,6 +685,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
                     <TextView
+                        android:id="@+id/btnpedometer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

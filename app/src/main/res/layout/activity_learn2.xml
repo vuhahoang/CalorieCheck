@@ -6,4 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".learn2">
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+       <ImageView
+           android:layout_width="100dp"
+           android:layout_height="200dp"
+           android:src="@drawable/cauliflower"
+           />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:src="@drawable/vie_bg"
+            />
+
+
+    </ImageView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Notes">
+    tools:context=".Pedometer">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,13 +13,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/topfoodinfo">
+        android:id="@+id/toppedometer">
 
         <TextView
-            android:id="@+id/tvtitlenote"
+            android:id="@+id/tvtitlepedometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Notes"
+            android:text="Đếm bước chân"
             android:textColor="@color/black"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView11"
+            android:id="@+id/backpedometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
@@ -48,76 +48,64 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topcustomfood"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#FFFFFF"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/botfoodinfo"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="160dp"
+        android:background="@color/xam"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topfoodinfo">
-
-        <TextView
-            android:id="@+id/dayinnotes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Thứ tư, Ngày 9 Tháng 3"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-
-        <EditText
-            android:id="@+id/edcontentnotes"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="5dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="Hôm nay bạn thế nào?"
-            android:inputType="textMultiLine" />
+        app:layout_constraintTop_toBottomOf="@id/toppedometer">
 
         <ImageView
-            android:id="@+id/imginnotes"
-            android:layout_width="200dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center_horizontal"
-            android:background="#BCBABA"
+            android:id="@+id/imageView12"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/pngrun"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_camera" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tvpedometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView12"
+            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintStart_toStartOf="@+id/imageView12" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Số bước"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topcustomfood" />
 
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/Edpedometer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:inputType="number"
+        android:hint="Nhập số bước bạn đi trong ngày"
+        android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:id="@+id/botfoodinfo">
-
-
-
-        <Button
-            android:id="@+id/addnote"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btntieptheo"
-            android:text="Thêm"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/blue"
-            />
-
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textView54" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

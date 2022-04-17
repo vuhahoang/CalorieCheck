@@ -134,36 +134,42 @@ public class Add_Food_Activity extends AppCompatActivity {
                 cc.setVisibility(View.GONE);
                 ci.setVisibility(View.VISIBLE);
                 String foodsearch =  edfood.getText().toString();
-                FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-                DatabaseReference reference = rootNode.getReference("FoodCustoms");
-                Query check = reference.orderByChild("name").equalTo(foodsearch);
-                check.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull  DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            Log.d("yes","yes");
-                            String name = snapshot.child(foodsearch).child("name").getValue(String.class);
-                            String calorie = snapshot.child(foodsearch).child("calorie").getValue(String.class);
-                            String carb = snapshot.child(foodsearch).child("carb").getValue(String.class);
-                            String protein = snapshot.child(foodsearch).child("protein").getValue(String.class);
-                            String fat = snapshot.child(foodsearch).child("fat").getValue(String.class);
-                            FoodModel foodModelci = new FoodModel(name,calorie,protein,carb,fat,"100");
-                            foodModels1.add(foodModelci);
-                            foodAdapterCalo.notifyDataSetChanged();
-                            rc1.setAdapter(foodAdapterCalo1);
-                            load.setVisibility(View.GONE);
+                if(foodsearch.isEmpty()){
+                    Toast.makeText(Add_Food_Activity.this,"Không được bỏ chống ô tìm kiếm",Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+                    DatabaseReference reference = rootNode.getReference("FoodCustoms");
+                    Query check = reference.orderByChild("name").equalTo(foodsearch);
+                    check.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                Log.d("yes", "yes");
+                                String name = snapshot.child(foodsearch).child("name").getValue(String.class);
+                                String calorie = snapshot.child(foodsearch).child("calorie").getValue(String.class);
+                                String carb = snapshot.child(foodsearch).child("carb").getValue(String.class);
+                                String protein = snapshot.child(foodsearch).child("protein").getValue(String.class);
+                                String fat = snapshot.child(foodsearch).child("fat").getValue(String.class);
+                                FoodModel foodModelci = new FoodModel(name, calorie, protein, carb, fat, "100");
+                                foodModels1.add(foodModelci);
+                                foodAdapterCalo.notifyDataSetChanged();
+                                rc1.setAdapter(foodAdapterCalo1);
+                                load.setVisibility(View.GONE);
 
 
+                            } else {
+                                translateText(foodsearch);
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                        }else {translateText(foodsearch);}
-                    }
+                        }
+                    });
 
-                    @Override
-                    public void onCancelled(@NonNull  DatabaseError error) {
-
-                    }
-                });
+                }
 
 
 

@@ -7,12 +7,7 @@ public class Diary {
     public Diary() {
     }
 
-    public Diary(String day, String month, String year, String content) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.content = content;
-    }
+
 
     public Diary(String day, String month, String year, String dow, String content) {
         this.day = day;

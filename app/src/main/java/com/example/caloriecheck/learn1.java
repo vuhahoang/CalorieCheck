@@ -31,7 +31,7 @@ public class learn1 extends AppCompatActivity {
             int pos = viewPager2.getCurrentItem();
 
             if(pos == contentpagers.size()-1){
-                onBackPressed();
+//                onBackPressed();
             }else {
                 viewPager2.setCurrentItem(pos + 1);
             }

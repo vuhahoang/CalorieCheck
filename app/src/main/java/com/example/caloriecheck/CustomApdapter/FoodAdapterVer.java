@@ -1,6 +1,7 @@
 package com.example.caloriecheck.CustomApdapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,19 +9,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caloriecheck.Inforecipe;
 import com.example.caloriecheck.Model.FoodModel;
+import com.example.caloriecheck.Model.RecipeModel;
 import com.example.caloriecheck.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class FoodAdapterVer extends RecyclerView.Adapter<FoodAdapterVer.ViewHolder> {
-    private ArrayList<FoodModel> foodModels;
+    private ArrayList<RecipeModel> recipeModels;
     private Context context;
 
-    public FoodAdapterVer(ArrayList<FoodModel> foodModels, Context context) {
-        this.foodModels = foodModels;
+    public FoodAdapterVer(ArrayList<RecipeModel> recipeModels, Context context) {
+        this.recipeModels = recipeModels;
         this.context = context;
     }
 
@@ -34,22 +39,32 @@ public class FoodAdapterVer extends RecyclerView.Adapter<FoodAdapterVer.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull FoodAdapterVer.ViewHolder holder, int position) {
-        FoodModel foodModel = foodModels.get(position);
-        holder.tvname.setText(foodModel.getName());
-        holder.tvtime.setText(foodModel.getTime());
-        holder.tvlever.setText(foodModel.getLever());
-        holder.tvkcal.setText(foodModel.getCalorie()+"");
-        holder.img.setImageResource(foodModel.getImg());
+        RecipeModel recipeModel = recipeModels.get(position);
+        holder.tvname.setText("Name: " +recipeModel.getTitle());
+        holder.tvtime.setText("Time: " + recipeModel.getRim()+"");
+        holder.tvlever.setText("Lever: Dễ");
+        holder.tvkcal.setText("Kcal: " + recipeModel.getCalorie()+"");
+        Picasso.get().load(recipeModel.getImage()).into(holder.img);
+        holder.cvlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, Inforecipe.class);
+                i.putExtra("keyid",recipeModel.getId());
+                context.startActivity(i);
+            }
+        });
+
 
 
     }
 
     @Override
     public int getItemCount() {
-        return foodModels.size();
+        return recipeModels.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        CardView cvlayout;
         TextView tvname,tvtime,tvkcal,tvlever;
         ImageView img;
         public ViewHolder(@NonNull View itemView) {
@@ -59,6 +74,7 @@ public class FoodAdapterVer extends RecyclerView.Adapter<FoodAdapterVer.ViewHold
             tvkcal = itemView.findViewById(R.id.tvkcalfoodver);
             tvlever = itemView.findViewById(R.id.tvleverfoodver);
             img = itemView.findViewById(R.id.imgfoodver);
+            cvlayout = itemView.findViewById(R.id.cardViewLayoutFoodVer);
 
         }
     }

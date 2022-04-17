@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,14 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.caloriecheck.CustomApdapter.FoodAdapterHor;
 import com.example.caloriecheck.CustomApdapter.FoodAdapterVer;
 import com.example.caloriecheck.Model.FoodModel;
+import com.example.caloriecheck.Model.RecipeModel;
 import com.example.caloriecheck.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class AllFoodTabFragment extends Fragment {
-    ArrayList<FoodModel> foodModels;
-    FoodAdapterHor foodAdapterHor;
+    ArrayList<RecipeModel> recipeModelspopular,recipeModelscouter,recipeModelsnew;
+    FoodAdapterHor foodAdapterHorpopular,foodAdapterHorcouter,foodAdapterHornew;
     RecyclerView rcphobien,rckiemsoat,rcmonmoi;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,19 +38,48 @@ public class AllFoodTabFragment extends Fragment {
         rcphobien = view.findViewById(R.id.rcphobieninall);
         rckiemsoat = view.findViewById(R.id.rckiemsoatinall);
         rcmonmoi = view.findViewById(R.id.rcnewfoodinall);
-        foodModels = new ArrayList<>();
-        foodModels.add(new FoodModel(R.drawable.pnglunch,"345","Cá hồi salad","dễ","30 phút"));
-        foodModels.add(new FoodModel(R.drawable.pnglunch,"345","Cá hồi salad","dễ","30 phút"));
-        foodModels.add(new FoodModel(R.drawable.pnglunch,"345","Cá hồi salad","dễ","30 phút"));
-        foodModels.add(new FoodModel(R.drawable.pnglunch,"345","Cá hồi salad","dễ","30 phút"));
-        foodModels.add(new FoodModel(R.drawable.pnglunch,"345","Cá hồi salad","dễ","30 phút"));
-        foodModels.add(new FoodModel(R.drawable.pnglunch,"345","Cá hồi salad","dễ","30 phút"));
-        foodModels.add(new FoodModel(R.drawable.pnglunch,"345","Cá hồi salad","dễ","30 phút"));
-        foodAdapterHor = new FoodAdapterHor(foodModels,getContext());
+        recipeModelspopular = new ArrayList<>();
+        recipeModelscouter = new ArrayList<>();
+        recipeModelsnew = new ArrayList<>();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Recipe");
+        foodAdapterHorpopular = new FoodAdapterHor(recipeModelspopular,getContext());
+        foodAdapterHorcouter = new FoodAdapterHor(recipeModelscouter,getContext());
+        foodAdapterHornew = new FoodAdapterHor(recipeModelsnew,getContext());
+        rcphobien.setAdapter(foodAdapterHorpopular);
+        rckiemsoat.setAdapter(foodAdapterHorcouter);
+        rcmonmoi.setAdapter(foodAdapterHornew);
+        foodAdapterHorpopular.notifyDataSetChanged();
+        foodAdapterHorcouter.notifyDataSetChanged();
+        foodAdapterHornew.notifyDataSetChanged();
 
-        rcphobien.setAdapter(foodAdapterHor);
-        rckiemsoat.setAdapter(foodAdapterHor);
-        rcmonmoi.setAdapter(foodAdapterHor);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    RecipeModel recipeModel = dataSnapshot.getValue(RecipeModel.class);
+                    if(recipeModel.getTag().equals("new")){
+                        recipeModelsnew.add(recipeModel);
+                    }else if(recipeModel.getTag().equals("popular")){
+                        recipeModelspopular.add(recipeModel);
+                    }else if(recipeModel.getCalorie() < 300){
+                        recipeModelscouter.add(recipeModel);
+                    }
+                    foodAdapterHorpopular.notifyDataSetChanged();
+                    foodAdapterHorcouter.notifyDataSetChanged();
+                    foodAdapterHornew.notifyDataSetChanged();
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         return view;
     }

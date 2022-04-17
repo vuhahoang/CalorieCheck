@@ -1,6 +1,8 @@
 package com.example.caloriecheck.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +25,11 @@ import android.widget.TextView;
 import com.example.caloriecheck.Add_Food_Activity;
 import com.example.caloriecheck.CustomApdapter.NoteAdapter;
 import com.example.caloriecheck.FoodSave;
+import com.example.caloriecheck.Login;
 import com.example.caloriecheck.Model.Diary;
 import com.example.caloriecheck.Model.FoodModel;
 import com.example.caloriecheck.Notes;
+import com.example.caloriecheck.Pedometer;
 import com.example.caloriecheck.R;
 import com.example.caloriecheck.learn1;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,7 +47,7 @@ import java.util.Date;
 
 public class DiaryFragment extends Fragment {
     SharedPreferences sharedPreferences,sharedPreferencesdata;
-    TextView tvMyCalorie,tvMyProtein,tvMyCarb,tvMyFat,tvcanht,tvcanmt,tvtieuthu,tvthaira,tvcalobs,tvcalobtr,tvcalobt,tvcalobp;
+    TextView tvMyCalorie,tvMyProtein,tvMyCarb,tvMyFat,tvcanht,tvcanmt,tvtieuthu,tvthaira,tvcalobs,tvcalobtr,tvcalobt,tvcalobp,pedometer;
     int protein,fat,carb;
     FloatingActionButton add_bs, add_btr , add_bt , add_bp,btn_tang,btn_giam;
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -81,6 +86,7 @@ public class DiaryFragment extends Fragment {
         tvcalobp = view.findViewById(R.id.tvMycalorieinbp);
         progressBar = view.findViewById(R.id.progressBar);
         addnotes = view.findViewById(R.id.cardViewadddiary);
+        pedometer = view.findViewById(R.id.btnpedometer);
         rc = view.findViewById(R.id.recyclerView);
         l1 = view.findViewById(R.id.learn1);
         l2 = view.findViewById(R.id.learn2);
@@ -92,11 +98,14 @@ public class DiaryFragment extends Fragment {
         getNotes();
         noteAdapter = new NoteAdapter(diaries,getContext());
         rc.setAdapter(noteAdapter);
+        SharedPreferences preferences = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);
+        Boolean checklogin = preferences.getBoolean("checklogin",false);
 
 
 
 
         sharedPreferences = getContext().getSharedPreferences("infomation",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         int nhucau = sharedPreferences.getInt("nhucau",0);
         double r = sharedPreferences.getFloat("R",0);
         int can = sharedPreferences.getInt("can",0);
@@ -105,6 +114,8 @@ public class DiaryFragment extends Fragment {
         int tuoi = sharedPreferences.getInt("tuoi",0);
         int canmt = sharedPreferences.getInt("canmoi",0);
         calorie = (int) (((9.99*can)+(6.25*chieucao)-(4.92*tuoi)+k)*r+nhucau);
+        editor.putInt("calorie",calorie);
+        editor.commit();
 
         marco(calorie,nhucau);
         tvMyProtein.setText(protein + "g còn lại");
@@ -117,38 +128,63 @@ public class DiaryFragment extends Fragment {
         addnotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd");
-                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
-                String day = sdf.format(new Date());
-                String month = sdf1.format(new Date());
-                Boolean check = false;
-                int value = 0;
-                for ( int i = 0; i < diaries.size() ; i++){
-                    Diary diary = diaries.get(i);
 
-                    if(diary.getDay().equals(day)  && diary.getMonth().equals(month) ){
+                if(checklogin){
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd");
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
+                    String day = sdf.format(new Date());
+                    String month = sdf1.format(new Date());
+                    Boolean check = false;
+                    int value = 0;
+                    for ( int i = 0; i < diaries.size() ; i++){
+                        Diary diary = diaries.get(i);
 
-                        check = true;
-                        value = i;
+                        if(diary.getDay().equals(day)  && diary.getMonth().equals(month) ){
+
+                            check = true;
+                            value = i;
+                        }
                     }
-                }
 
-                Log.d("check",check + "");
+                    Log.d("check",check + "");
 
-                if(check){
-                    Diary diary = diaries.get(value);
-                    Intent i = new Intent(getContext(), Notes.class);
-                    i.putExtra("day",diary.getDay());
-                    i.putExtra("month",diary.getMonth());
-                    i.putExtra("dow",diary.getDow());
-                    i.putExtra("content",diary.getContent());
-                    i.putExtra("check",true);
-                    startActivity(i);
+                    if(check){
+                        Diary diary = diaries.get(value);
+                        Intent i = new Intent(getContext(), Notes.class);
+                        i.putExtra("day",diary.getDay());
+                        i.putExtra("month",diary.getMonth());
+                        i.putExtra("dow",diary.getDow());
+                        i.putExtra("content",diary.getContent());
+                        i.putExtra("check",true);
+                        startActivity(i);
+                    }else {
+                        Intent i = new Intent(getContext(), Notes.class);
+                        startActivity(i);
+                    }
                 }else {
-                    Intent i = new Intent(getContext(), Notes.class);
-                    startActivity(i);
+                    AlertDialog.Builder builder =new AlertDialog.Builder(getContext());
+                    builder.setMessage("Bạn cần đăng nhập để tiếp tục?")
+                            .setCancelable(false)
+                            .setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i = new Intent(getContext(), Login.class);
+                                    startActivity(i);
+                                }
+                            })
+                            .setNegativeButton("Để sau",null);
+                    builder.show();
                 }
 
+
+            }
+        });
+
+        pedometer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), Pedometer.class);
+                startActivity(i);
             }
         });
 
