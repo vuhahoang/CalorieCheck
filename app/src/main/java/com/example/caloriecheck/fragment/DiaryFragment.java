@@ -40,6 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,13 +48,13 @@ import java.util.Date;
 
 public class DiaryFragment extends Fragment {
     SharedPreferences sharedPreferences,sharedPreferencesdata;
-    TextView tvMyCalorie,tvMyProtein,tvMyCarb,tvMyFat,tvcanht,tvcanmt,tvtieuthu,tvthaira,tvcalobs,tvcalobtr,tvcalobt,tvcalobp,pedometer;
+    TextView tvMyCalorie,tvMyProtein,tvMyCarb,tvMyFat,tvcanht,tvcanmt,tvtieuthu,tvthaira,tvcalobs,tvcalobtr,tvcalobt,tvcalobp,pedometer,tvcaloout;
     int protein,fat,carb;
     FloatingActionButton add_bs, add_btr , add_bt , add_bp,btn_tang,btn_giam;
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     String date2 = sdf.format(new Date());
     int calorie;
-    ProgressBar progressBar;
+    ProgressBar progressBar,pBpro,pbCarb,pbFat;
     Button addnotes;
     RecyclerView rc;
     ArrayList<Diary> diaries;
@@ -85,6 +86,10 @@ public class DiaryFragment extends Fragment {
         tvcalobt = view.findViewById(R.id.tvMycalorieinbt);
         tvcalobp = view.findViewById(R.id.tvMycalorieinbp);
         progressBar = view.findViewById(R.id.progressBar);
+        tvcaloout = view.findViewById(R.id.dathaira);
+        pBpro = view.findViewById(R.id.progressBar2);
+        pbCarb = view.findViewById(R.id.progressBar3);
+        pbFat = view.findViewById(R.id.progressBar4);
         addnotes = view.findViewById(R.id.cardViewadddiary);
         pedometer = view.findViewById(R.id.btnpedometer);
         rc = view.findViewById(R.id.recyclerView);
@@ -363,27 +368,38 @@ public class DiaryFragment extends Fragment {
         Float carbbtr = sharedPreferencesdata.getFloat("Bữa trưacarb",0);
         Float carbbt = sharedPreferencesdata.getFloat("Bữa tốicarb",0);
         Float carbbp = sharedPreferencesdata.getFloat("Bữa phụcarb",0);
-        Float fatbs = sharedPreferences.getFloat("Bữa sángfat",0);
-        Float fatbtr = sharedPreferences.getFloat("Bữa trưafat",0);
-        Float fatbt = sharedPreferences.getFloat("Bữa tốifat",0);
-        Float fatbp = sharedPreferences.getFloat("Bữa phụfat",0);
-        Log.d("btr",probtr+"");
+        Float fatbs = sharedPreferencesdata.getFloat("Bữa sángfat",0);
+        Float fatbtr = sharedPreferencesdata.getFloat("Bữa trưafat",0);
+        Float fatbt = sharedPreferencesdata.getFloat("Bữa tốifat",0);
+        Float fatbp = sharedPreferencesdata.getFloat("Bữa phụfat",0);
+        int sobuoc = sharedPreferencesdata.getInt("pedometer",0);
+        Log.d("btr",sobuoc+"");
 
 
         tvcalobs.setText(calobs + "kc");
         tvcalobtr.setText(calobtr + "kc");
         tvcalobt.setText(calobt + "kc");
         tvcalobp.setText(calobp + "kc");
-        tvtieuthu.setText(calobs + calobtr + calobt + calobp + "kc");
-        tvMyCalorie.setText((calorie - (calobs + calobtr + calobt + calobp))+"kc");
-        tvMyProtein.setText((protein - (probs + probtr + probt + probp)) + "g còn lại");
-        tvMyCarb.setText((carb - (carbbs + carbbtr + carbbt + carbbp))+"g còn lại");
-        tvMyFat.setText((fat - (fatbs + fatbtr + fatbt + fatbp))+ "g còn lại");
+        tvtieuthu.setText(calobs + calobtr + calobt + calobp + "kcal");
+        tvMyCalorie.setText(round((float) ((calorie - (calobs + calobtr + calobt + calobp)) + (sobuoc*0.04)),0)+"kc");
+        tvMyProtein.setText(round((protein - (probs + probtr + probt + probp)),0) + "g còn lại");
+        tvMyCarb.setText(round((carb - (carbbs + carbbtr + carbbt + carbbp)),0)+"g còn lại");
+        tvMyFat.setText(round((fat - (fatbs + fatbtr + fatbt + fatbp)),0)+ "g còn lại");
+        tvcaloout.setText((sobuoc*0.04)+"kcal");
         int phantram = (int) (((calobs + calobtr + calobt + calobp)/calorie) * 100);
+        int phantramPro = (int) (((probs + probtr + probt + probp) / protein) * 100);
+        int phantramCarb = (int) (((carbbs + carbbtr + carbbt + carbbp) / carb) * 100);
+        int phantramFat = (int) (((fatbs + fatbtr + fatbt + fatbp) / fat) * 100);
 
 
         progressBar.setProgress(phantram);
         progressBar.setMax(100);
+        pBpro.setProgress(phantramPro);
+        pBpro.setMax(100);
+        pbCarb.setProgress(phantramCarb);
+        pbCarb.setMax(100);
+        pbFat.setProgress(phantramFat);
+        pbFat.setMax(100);
     }
 
     private void getNotes(){
@@ -407,5 +423,11 @@ public class DiaryFragment extends Fragment {
             }
         });
 
+    }
+
+    public static float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 }

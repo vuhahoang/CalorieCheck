@@ -40,6 +40,7 @@ public class questiontwo extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         editor.putInt("can",can);
+                        editor.putInt("canbd",can);
                         editor.commit();
                         Intent j = new Intent(questiontwo.this,questionthree.class);
                         startActivity(j);

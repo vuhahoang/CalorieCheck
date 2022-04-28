@@ -1,6 +1,8 @@
 package com.example.caloriecheck.CustomApdapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caloriecheck.DayInPlan;
 import com.example.caloriecheck.Model.Plan;
 import com.example.caloriecheck.R;
 import com.squareup.picasso.Picasso;
@@ -41,6 +44,17 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
          holder.name.setText(plan.getName());
          holder.condition.setText(plan.getCondition());
         Picasso.get().load(plan.getImg()).into( holder.img);
+        holder.cvplan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, DayInPlan.class);
+                Bundle args = new Bundle();
+                args.putSerializable("Arraylistdayrecipe",plan.getDayrecipes());
+                i.putExtra("BUNDLE",args);
+                i.putExtra("imgtitle",plan.getImg());
+                context.startActivity(i);
+            }
+        });
 
     }
 

@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="Thải ra"
+                        android:text="Tiêu hao"
                         app:layout_constraintStart_toEndOf="@+id/imageView10"
                         app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
@@ -599,7 +599,6 @@
                                 android:layout_width="90dp"
                                 android:layout_height="90dp"
                                 android:layout_gravity="center_horizontal"
-
                                 />
 
                         </androidx.cardview.widget.CardView>
@@ -938,13 +937,13 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/learn1"
                         android:layout_width="150dp"
                         android:layout_height="200dp"
                         android:layout_marginStart="10dp"
+                        android:backgroundTint="#FF99FF"
                         android:elevation="10dp"
-                        app:cardCornerRadius="15dp"
-                        android:id="@+id/learn1"
-                        >
+                        app:cardCornerRadius="15dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -969,6 +968,7 @@
                         android:layout_marginStart="10dp"
                         android:elevation="10dp"
                         app:cardCornerRadius="15dp"
+                        android:backgroundTint="#FCBBF1"
                         android:id="@+id/learn2">
 
                         <LinearLayout
@@ -994,7 +994,8 @@
                         android:layout_marginStart="10dp"
                         android:elevation="10dp"
                         app:cardCornerRadius="15dp"
-                        android:id="@+id/learn3">
+                        android:id="@+id/learn3"
+                        android:backgroundTint="#E7F686">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -1019,7 +1020,10 @@
                         android:layout_marginStart="10dp"
                         android:elevation="10dp"
                         app:cardCornerRadius="15dp"
-                        android:id="@+id/learn4">
+                        android:id="@+id/learn4"
+                        android:backgroundTint="#A5DCFF"
+
+                        >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -1045,12 +1049,15 @@
                         android:elevation="10dp"
                         app:cardCornerRadius="15dp"
                         android:id="@+id/learn5"
+                        android:backgroundTint="#CEFFC1"
+
                         >
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                           >
 
                             <TextView
                                 android:layout_width="wrap_content"

@@ -3,6 +3,8 @@
     package="com.example.caloriecheck">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -13,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalorieCheck">
-        <activity android:name=".Pedometer"></activity>
+        <activity android:name=".RecipeinDay"></activity>
+        <activity android:name=".DayInPlan" />
+        <activity android:name=".Pedometer" />
         <activity android:name=".BeforeandAfter" />
         <activity android:name=".Updateprofile" />
         <activity android:name=".Editprofile" />

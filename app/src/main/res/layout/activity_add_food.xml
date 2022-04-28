@@ -15,6 +15,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/topfoodinfo">
 
+
+
         <TextView
             android:id="@+id/tvtitle"
             android:layout_width="wrap_content"
@@ -27,26 +29,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView11"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
+            android:id="@+id/lllayoutbackinaddfood"
+            android:layout_marginTop="12dp"
+            >
+            <ImageView
 
-        <TextView
-            android:id="@+id/textView64"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Done"
-            android:textColor="@color/blue"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-            app:layout_constraintStart_toEndOf="@+id/imageView11"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/ic_back"
+                 />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Done"
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                 />
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:id="@+id/LLfoods"

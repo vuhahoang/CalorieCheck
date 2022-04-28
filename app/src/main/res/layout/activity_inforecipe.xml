@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#FFFFFF"
     tools:context=".Inforecipe">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:id="@+id/imgtitleinforecipe"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:src="@drawable/anhtest"
@@ -16,9 +18,9 @@
         app:layout_constraintHeight_percent="0.27"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"/>
+        app:layout_constraintVertical_bias="0" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/vie_bg"
@@ -30,101 +32,148 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-        <TextView
-            android:id="@+id/tvnamerecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Món gì đó"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvnamerecipe">
-
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="50px"
-                android:src="@drawable/ic_time" />
-
-            <TextView
-                android:id="@+id/tvtimerecipeinfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="35phút" />
-
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="50px"
-                android:layout_marginStart="20dp"
-                android:src="@drawable/ic_fire" />
-
-            <TextView
-                android:id="@+id/tvkcalrecipeinfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="245kcal" />
-
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="50px"
-                android:layout_marginStart="20dp"
-                android:src="@drawable/ic_chefhat" />
-
-            <TextView
-                android:id="@+id/tvleverrecipeinfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dễ" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView29"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Thành phần"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-        <TextView
-            android:id="@+id/textView53"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="1 Khẩu phần"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView29"
-            app:layout_constraintStart_toEndOf="@+id/textView29" />
-
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rcingredients"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView53"
-            tools:listitem="@layout/layout_ingredients"/>
+            android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btnaddrecipetodiary"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                app:backgroundTint="@color/blue"
+                android:text="Thêm"
+                app:layout_constraintBottom_toBottomOf="@+id/textView53"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView53" />
+
+            <TextView
+                android:id="@+id/tvnamerecipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Món gì đó"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvnamerecipe">
+
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:src="@drawable/ic_time" />
+
+                <TextView
+                    android:id="@+id/tvtimerecipeinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="35phút" />
+
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/ic_fire" />
+
+                <TextView
+                    android:id="@+id/tvkcalrecipeinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="245kcal" />
+
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/ic_chefhat" />
+
+                <TextView
+                    android:id="@+id/tvleverrecipeinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dễ" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Thành phần"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <TextView
+                android:id="@+id/textView53"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="1 Khẩu phần"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView29"
+                app:layout_constraintStart_toEndOf="@+id/textView29"
+                app:layout_constraintTop_toTopOf="@+id/textView29" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView53"
+                tools:listitem="@layout/layout_ingredients" />
+
+            <TextView
+                android:id="@+id/tvhuongdaninforecipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Hướng dẫn"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rcingredients" />
+
+            <TextView
+                android:id="@+id/tvintroductinforecipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Warm stock in small saucepan, keep warm.In small saut pan warm olive oil with sage leaves until fragrant.  Be careful not to burn leaves.  Cook 5-6 minutes and let cool.In a medium saucepan melt butter over medium heat.  Add shallots and pancetta.  Saut until  shallots are translucent.Add rice and stir until coated in butter.Add wine and cook 2-3 minutes.Slowly begin adding in stock, 1-2 ladles at a time.  Allow rice to absorb liquid before adding another ladle-full..   Continue to cook until rice is al dente (has a little bite).Add parmesan and squash puree and mix until smooth and creamy.Top with a drizzle of sage oil."
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvhuongdaninforecipe" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvintroductinforecipe" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

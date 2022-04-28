@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.caloriecheck.CustomApdapter.FoodAdapterCalo;
@@ -26,8 +27,9 @@ public class FoodSave extends AppCompatActivity {
     TextView tvName,tvCarb,tvPro,tvFat,tvCalo,tvCarb1,tvPro1,tvFat1,tvCalo1,title;
     ArrayList<FoodModel> foodModels;
     FoodAdapterCaloFS foodAdapterCalo;
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences,sharedPreferencesdata;
     Button btnadd;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class FoodSave extends AppCompatActivity {
         title = findViewById(R.id.tvtitlefoodsave);
         rc = findViewById(R.id.rccalofoodsave);
         btnadd = findViewById(R.id.addfoodinfoodsave);
+        back = findViewById(R.id.imgbackfoodsave);
         Intent i = getIntent();
         foodModels = new ArrayList<>();
 
@@ -52,6 +55,19 @@ public class FoodSave extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String date2 = sdf.format(new Date());
         sharedPreferences = getSharedPreferences(buaan+date2,MODE_PRIVATE);
+        sharedPreferencesdata = getSharedPreferences("data" + date2,MODE_PRIVATE);
+        Float calo = sharedPreferencesdata.getFloat(buaan + "calorie",0);
+        Float pro = sharedPreferencesdata.getFloat(buaan + "protein",0);
+        Float carb = sharedPreferencesdata.getFloat(buaan + "carb",0);
+        Float fat = sharedPreferencesdata.getFloat(buaan + "fat",0);
+        tvCarb.setText(carb+"");
+        tvCarb1.setText(carb+"");
+        tvCalo.setText(calo+"");
+        tvCalo1.setText(calo+"");
+        tvPro.setText(pro + "");
+        tvPro1.setText(pro+"");
+        tvFat.setText(fat+"");
+        tvFat1.setText(fat+"");
         Map<String,?> keys = sharedPreferences.getAll();
         for(Map.Entry<String,?> entry : keys.entrySet()){
             Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
@@ -68,6 +84,13 @@ public class FoodSave extends AppCompatActivity {
                 Intent i = new Intent(FoodSave.this,Add_Food_Activity.class);
                 i.putExtra("title",buaan);
                 startActivity(i);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.caloriecheck.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.caloriecheck.CustomApdapter.PlanAdapter;
 import com.example.caloriecheck.Model.Plan;
 import com.example.caloriecheck.Model.RecipeModel;
 import com.example.caloriecheck.R;
+import com.example.caloriecheck.learn2;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +32,7 @@ public class HomeFragment extends Fragment {
     PlanAdapter planAdapter;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    TextView addplan;
 
 
     @Override
@@ -37,6 +41,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         rc = view.findViewById(R.id.rcplan);
+        addplan = view.findViewById(R.id.tvaddPlanadmin);
         plans = new ArrayList<>();
         planAdapter = new PlanAdapter(plans,getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -58,6 +63,7 @@ public class HomeFragment extends Fragment {
 
                 }
 
+
             }
 
             @Override
@@ -65,6 +71,16 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        addplan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(),learn2.class);
+                startActivity(i);
+            }
+        });
+
+
 
 
         return view;

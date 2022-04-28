@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class CustomFood extends AppCompatActivity {
     DatabaseReference reference;
     FoodModel foodModel;
     TextView title;
+    ImageView imgback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,16 @@ public class CustomFood extends AppCompatActivity {
         EdFat = findViewById(R.id.EdFatCustomfood);
         add = findViewById(R.id.addCustomfood);
         title = findViewById(R.id.tvtitlecustomfood);
+        imgback = findViewById(R.id.imgbackincustomfood);
         Intent i = getIntent();
         title.setText(i.getStringExtra("title"));
+
+        imgback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +54,8 @@ public class CustomFood extends AppCompatActivity {
                     reference = rootNode.getReference("FoodCustoms");
                     foodModel = new FoodModel(EdName.getText().toString().trim(),EdCalorie.getText().toString().trim(),EdCarbs.getText().toString().trim(),EdProtein.getText().toString().trim(),EdFat.getText().toString().trim(),"1");
                     reference.child(EdName.getText().toString().trim()).setValue(foodModel);
+                    Toast.makeText(CustomFood.this,"Đã thêm",Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }else {
                     Toast.makeText(CustomFood.this,"Không được để chống ô nào",Toast.LENGTH_SHORT).show();
                 }

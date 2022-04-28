@@ -48,7 +48,7 @@ public class Notes extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String day,month,year,today;
     Button btnadd;
-    ImageView imgnote;
+    ImageView imgnote,imgback;
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
     Uri imgUri;
@@ -61,6 +61,7 @@ public class Notes extends AppCompatActivity {
         edcontent = findViewById(R.id.edcontentnotes);
         btnadd = findViewById(R.id.addnote);
         imgnote = findViewById(R.id.imginnotes);
+        imgback = findViewById(R.id.imgbacknotes);
         Intent i= getIntent();
         getImagefromFirebase();
         Boolean check =  i.getBooleanExtra("check",false);
@@ -70,6 +71,13 @@ public class Notes extends AppCompatActivity {
         }else {
             getDay();
         }
+
+        imgback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         imgnote.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -50,14 +50,14 @@ import java.io.IOException;
 
 public class InfoFragment extends Fragment {
     SharedPreferences sharedPreferences,preferences;
-    TextView siandsu,tvSaveprofile,tvsua,tvlogout,tvgoal,tvweight,tvgoalweight,tvcalorie,tvbaa,tv52;
+    TextView siandsu,tvSaveprofile,tvsua,tvlogout,tvgoal,tvweight,tvgoalweight,tvcalorie,tvbaa,tv52,tvtitlebaa;
     LinearLayout logout,changePass;
     String muctieu;
     ImageView avatar;
     private static final int IMAGE_PICK_CODE =1000;
     private static final int PERMISSION_CODE = 1001;
     Uri imgUri;
-    ProgressBar load;
+    ProgressBar load,pBbaa;
 
 
 
@@ -80,11 +80,29 @@ public class InfoFragment extends Fragment {
          avatar = view.findViewById(R.id.imgAvatar);
          load = view.findViewById(R.id.loadimg);
          tv52 = view.findViewById(R.id.textView52);
+         tvtitlebaa = view.findViewById(R.id.tvbaatitle);
+         pBbaa = view.findViewById(R.id.progressBarbaa);
+
 
        
         sharedPreferences = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);
         preferences = getContext().getSharedPreferences("infomation",Context.MODE_PRIVATE);
         int mt = preferences.getInt("nhucau",0);
+
+        int canbd = preferences.getInt("canbd",0);
+        int canht = preferences.getInt("can",0);
+        int canmt = preferences.getInt("canmoi",0);
+        pBbaa.setMax(Math.abs(canmt -canbd));
+        if(canht == canmt){
+            tvtitlebaa.setText("Chúc mừng bạn đã hoàn thành mục tiêu");
+            pBbaa.setProgress(  Math.abs(canmt-canbd) );
+        }else if(canbd == canht) {
+            tvtitlebaa.setText("Bạn sẽ làm được thôi");
+            pBbaa.setProgress(0);
+        }else {
+            tvtitlebaa.setText("Bạn đã giảm được " + Math.abs(canht - canbd) + " kg");
+            pBbaa.setProgress(Math.abs(canht - canbd));
+        }
 
 
         if(mt == -500){
@@ -103,7 +121,6 @@ public class InfoFragment extends Fragment {
             getImagefromFirebase();
             siandsu.setVisibility(View.GONE);
             tvSaveprofile.setText("Xin chào " + sharedPreferences.getString("name",""));
-            changePass.setVisibility(View.VISIBLE);
             tvlogout.setText("Đăng xuất");
         }
 //

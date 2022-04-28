@@ -2,10 +2,10 @@ package com.example.caloriecheck.Model;
 
 public class User {
     private String Name,Username,Email,Password;
-    private int Age,Height,Weight,Target,WeightTarget,K;
+    private int Age,Height,Weight,Target,WeightTarget,K,WeightStarts;
     private double R;
 
-    public User(String name, String username, String email,String password, int age, int height, int weight, int target, int weightTarget, double r,int k) {
+    public User(String name, String username, String email,String password, int age, int height, int weight, int target, int weightTarget, double r,int k, int weightstarts) {
         Name = name;
         Username = username;
         Email = email;
@@ -17,6 +17,16 @@ public class User {
         Target = target;
         WeightTarget = weightTarget;
         R = r;
+        WeightStarts = weightstarts;
+    }
+
+
+    public int getWeightStarts() {
+        return WeightStarts;
+    }
+
+    public void setWeightStarts(int weightStarts) {
+        WeightStarts = weightStarts;
     }
 
     public String getPassword() {

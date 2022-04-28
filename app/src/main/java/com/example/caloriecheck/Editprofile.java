@@ -32,34 +32,34 @@ public class Editprofile extends AppCompatActivity {
         llgoalweight = findViewById(R.id.layoutgoalweight);
         llactivity = findViewById(R.id.layoutactivity);
         llcalorie = findViewById(R.id.layoutcalorie);
-//        sharedPreferences = getSharedPreferences("infomation",MODE_PRIVATE);
-//        int mt = sharedPreferences.getInt("nhucau",0);
-//        float r = sharedPreferences.getFloat("R",0);
-//        Log.d("Ronaldo",r+"");
-//        if(mt == -500){
-//            muctieu="Giảm cân";
-//        }else if(mt == 0){
-//            muctieu="Giữ cân";
-//        }else muctieu="Tăng cân";
-//
-//        if(Float.compare(r, (float) 1.2)==0){
-//            hoatdong="Vận động ít";
-//        }else if(Float.compare(r, (float) 1.375)==0){
-//            hoatdong="Vận động nhẹ";
-//        }else if( Float.compare(r, (float) 1.55)==0){
-//            hoatdong="Vận động vừa";
-//        }else if( Float.compare(r, (float) 1.725)==0){
-//            hoatdong="Vận động siêng";
-//        }else if(Float.compare(r, (float) 1.9)==0){
-//            hoatdong="Vận động viên";
-//        }
+        sharedPreferences = getSharedPreferences("infomation",MODE_PRIVATE);
+        int mt = sharedPreferences.getInt("nhucau",0);
+        float r = sharedPreferences.getFloat("R",0);
+        Log.d("Ronaldo",r+"");
+        if(mt == -500){
+            muctieu="Giảm cân";
+        }else if(mt == 0){
+            muctieu="Giữ cân";
+        }else muctieu="Tăng cân";
+
+        if(Float.compare(r, (float) 1.2)==0){
+            hoatdong="Vận động ít";
+        }else if(Float.compare(r, (float) 1.375)==0){
+            hoatdong="Vận động nhẹ";
+        }else if( Float.compare(r, (float) 1.55)==0){
+            hoatdong="Vận động vừa";
+        }else if( Float.compare(r, (float) 1.725)==0){
+            hoatdong="Vận động siêng";
+        }else if(Float.compare(r, (float) 1.9)==0){
+            hoatdong="Vận động viên";
+        }
 
 
-//        goal.setText(muctieu);
-//        weight.setText(sharedPreferences.getInt("can",0)+"");
-//        goalweight.setText(sharedPreferences.getInt("canmoi",0)+"");
-//        activity.setText(hoatdong);
-//        calorie.setText(sharedPreferences.getInt("calorie",0)+"");
+        goal.setText(muctieu);
+        weight.setText(sharedPreferences.getInt("can",0)+"");
+        goalweight.setText(sharedPreferences.getInt("canmoi",0)+"");
+        activity.setText(hoatdong);
+        calorie.setText(sharedPreferences.getInt("calorie",0)+"");
 
         llgoal.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -56,6 +56,7 @@ public class Signup extends AppCompatActivity {
                     int k = sharedPreferences.getInt("K",0);
                     int tuoi = sharedPreferences.getInt("tuoi",0);
                     int canmt = sharedPreferences.getInt("canmoi",0);
+                    int canbt = sharedPreferences.getInt("canbd",0);
 
                     Query checkUser = reference.orderByChild("username").equalTo(username);
                     checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -64,7 +65,7 @@ public class Signup extends AppCompatActivity {
                             if (snapshot.exists()){
                                 edUserName.setError("Tài khoản đã tồn tại");
                             }else {
-                                User user = new User(name,username,email,password,tuoi,chieucao,can,nhucau,canmt,r,k);
+                                User user = new User(name,username,email,password,tuoi,chieucao,can,nhucau,canmt,r,k,canbt);
                                 reference.child(username).setValue(user);
                                 sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();

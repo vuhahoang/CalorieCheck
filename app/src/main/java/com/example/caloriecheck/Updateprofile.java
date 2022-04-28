@@ -176,10 +176,11 @@ public class Updateprofile extends AppCompatActivity {
     private void codeweight(){
         layoutweight.setVisibility(View.VISIBLE);
         bot.setVisibility(View.VISIBLE);
-        String canht = edweight.getText().toString().trim();
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String canht = edweight.getText().toString().trim();
                 if(canht.isEmpty()){
                     Toast.makeText(Updateprofile.this,"Không được bỏ trống",Toast.LENGTH_LONG).show();
                 }else{
@@ -197,10 +198,11 @@ public class Updateprofile extends AppCompatActivity {
     private void codegoalweight(){
         layoutgoalweight.setVisibility(View.VISIBLE);
         bot.setVisibility(View.VISIBLE);
-        String canmm = edgoalweight.getText().toString().trim();
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String canmm = edgoalweight.getText().toString().trim();
                 if(canmm.isEmpty()){
                     Toast.makeText(Updateprofile.this,"Không được bỏ trống",Toast.LENGTH_LONG).show();
                 }else{
@@ -234,10 +236,11 @@ public class Updateprofile extends AppCompatActivity {
     private void codecalorie(){
         layoutcalorie.setVisibility(View.VISIBLE);
         bot.setVisibility(View.VISIBLE);
-        String calorie = edcalorie.getText().toString().trim();
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String calorie = edcalorie.getText().toString().trim();
                 if(calorie.isEmpty()){
                     Toast.makeText(Updateprofile.this,"Không được bỏ trống",Toast.LENGTH_LONG).show();
                 }else{

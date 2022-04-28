@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class FoodInfo extends AppCompatActivity {
     String buaan,name,calorie,fat,carb,protein,gram;
     FoodModel foodModel;
     Boolean check = false;
+    ImageView back;
 
 
     @Override
@@ -47,6 +49,13 @@ public class FoodInfo extends AppCompatActivity {
         title = findViewById(R.id.tvtitlefoodinfo);
         edgram = findViewById(R.id.edgramfoodinfo);
         btnadd = findViewById(R.id.addfoodinfoodinfo);
+        back = findViewById(R.id.imgbackfoodinfo);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         getdata();
         if(check){
             btnadd.setText("Sửa");

@@ -117,12 +117,12 @@ public class learn1 extends AppCompatActivity {
     }
 
     private void learnfive(){
-        contentpagers.add(new ContentPager("CEFFC1","#115400","Nếu bạn không tập luyện thể thao bạn có thể giảm cân được không?","",""));
-        contentpagers.add(new ContentPager("CEFFC1","#115400","","Hoàn toàn có thể, bạn có thể giảm cân chỉ với việc ăn uống khoa học","Tuy nhiên tập luyện sẽ giúp bạn trao đổi trất tốt hơn và có thế tiêu thu nhiều calo trong ngày hơn một chút"));
-        contentpagers.add(new ContentPager("CEFFC1","#115400","","Tuy nhiên bạn hãy cố đảm bảo bạn hoàn thành mục tiêu calo trong ngày","Nếu bạn tập quá nhiều làm thâm hụt calo có thể làm chậm quá trình giảm cân của bạn"));
-        contentpagers.add(new ContentPager("CEFFC1","#115400","","Miễn là bạn không vượt mục tiêu calo thì cuối cùng bạn sẽ đạt được mục tiêu giảm cân",""));
-        contentpagers.add(new ContentPager("CEFFC1","#115400","","Lưu ý: Bạn không nên hạn chế tiêu thụ những thực phẩm không tốt như đồ ngọt hoặc đồ ăn nhanh","Hãy tối ưu sử dụng thực phẩm giàu protein hoặc carbohydrate phức hợp(Vd: Khoai tây,yến mạch,gạo nguyên hạt)"));
-        contentpagers.add(new ContentPager("CEFFC1","#115400","","hãy thử và xem phương pháp nào phù hợp nhất với bạn","Chúc may mắn!"));
+        contentpagers.add(new ContentPager("#CEFFC1","#115400","Nếu bạn không tập luyện thể thao bạn có thể giảm cân được không?","",""));
+        contentpagers.add(new ContentPager("#CEFFC1","#115400","","Hoàn toàn có thể, bạn có thể giảm cân chỉ với việc ăn uống khoa học","Tuy nhiên tập luyện sẽ giúp bạn trao đổi trất tốt hơn và có thế tiêu thu nhiều calo trong ngày hơn một chút"));
+        contentpagers.add(new ContentPager("#CEFFC1","#115400","","Tuy nhiên bạn hãy cố đảm bảo bạn hoàn thành mục tiêu calo trong ngày","Nếu bạn tập quá nhiều làm thâm hụt calo có thể làm chậm quá trình giảm cân của bạn"));
+        contentpagers.add(new ContentPager("#CEFFC1","#115400","","Miễn là bạn không vượt mục tiêu calo thì cuối cùng bạn sẽ đạt được mục tiêu giảm cân",""));
+        contentpagers.add(new ContentPager("#CEFFC1","#115400","","Lưu ý: Bạn không nên hạn chế tiêu thụ những thực phẩm không tốt như đồ ngọt hoặc đồ ăn nhanh","Hãy tối ưu sử dụng thực phẩm giàu protein hoặc carbohydrate phức hợp(Vd: Khoai tây,yến mạch,gạo nguyên hạt)"));
+        contentpagers.add(new ContentPager("#CEFFC1","#115400","","hãy thử và xem phương pháp nào phù hợp nhất với bạn","Chúc may mắn!"));
     }
 
 }

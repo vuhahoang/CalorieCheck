@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,6 +98,7 @@ public class FoodAdapterCalo extends RecyclerView.Adapter<FoodAdapterCalo.ViewHo
                 editordata.putFloat(buaan+"fat",Float.parseFloat(foodModel.getFat()) + fatht);
                 editordata.putFloat(buaan+"carb",Float.parseFloat(foodModel.getCarb()) + carbht);
                 editordata.commit();
+                Toast.makeText(context,"Đã thêm " + foodModel.getGram() + " " + foodModel.getName(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -61,9 +61,10 @@ public class Add_Food_Activity extends AppCompatActivity {
     ArrayList<FoodModel> foodModels;
     FoodAdapterCalo foodAdapterCalo,foodAdapterCalo1;
     LinearLayout customfood;
-    TextView title,tvthucpham;
+    TextView title,tvthucpham,tvthucpham1;
     ArrayList<FoodModel> foodModels1;
     SharedPreferences sharedPreferences;
+    LinearLayout llback;
 
 
     @Override
@@ -78,7 +79,9 @@ public class Add_Food_Activity extends AppCompatActivity {
         rc = findViewById(R.id.rccalo);
         rc1 = findViewById(R.id.rccalosearch);
         title = findViewById(R.id.tvtitle);
+        llback = findViewById(R.id.lllayoutbackinaddfood);
         tvthucpham = findViewById(R.id.tvthucpham);
+        tvthucpham1 = findViewById(R.id.tvthucpham1);
         customfood = findViewById(R.id.botaddfood);
         foodModels = new ArrayList<>();
         foodModels1 = new ArrayList<>();
@@ -192,31 +195,92 @@ public class Add_Food_Activity extends AppCompatActivity {
             }
         });
 
+        llback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
     }
 
     private void getList(){
         sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
         String nameUser = sharedPreferences.getString("username","error");
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("User").child(nameUser).child("Recently");
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull  DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    FoodModel foodModel = dataSnapshot.getValue(FoodModel.class);
-                    foodModels.add(foodModel);
+        Boolean check = sharedPreferences.getBoolean("checklogin",false);
+        if (check){
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("User").child(nameUser).child("Recently");
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                    if(!snapshot.exists()){
+                        tvthucpham1.setText("Phổ biến");
+                        FirebaseDatabase databasefood = FirebaseDatabase.getInstance();
+                        DatabaseReference myfood = databasefood.getReference("Foods");
+                        myfood.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                    FoodModel foodModel = dataSnapshot.getValue(FoodModel.class);
+                                    foodModels.add(foodModel);
+
+
+                                }
+
+                                foodAdapterCalo.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull  DatabaseError error) {
+
+                            }
+                        });
+
+                    }else {
+
+                        tvthucpham1.setText("Gần đây");
+
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            FoodModel foodModel = dataSnapshot.getValue(FoodModel.class);
+                            foodModels.add(foodModel);
+                        }
+
+                        foodAdapterCalo.notifyDataSetChanged();
+                    }
+
                 }
 
-                foodAdapterCalo.notifyDataSetChanged();
+                @Override
+                public void onCancelled(@NonNull  DatabaseError error) {
 
-            }
+                }
+            });
+        }else {
+            tvthucpham1.setText("Phổ biến");
+            FirebaseDatabase databasefood = FirebaseDatabase.getInstance();
+            DatabaseReference myfood = databasefood.getReference("Foods");
+            myfood.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        FoodModel foodModel = dataSnapshot.getValue(FoodModel.class);
+                        foodModels.add(foodModel);
 
-            @Override
-            public void onCancelled(@NonNull  DatabaseError error) {
 
-            }
-        });
+                    }
+
+                    foodAdapterCalo.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull  DatabaseError error) {
+
+                }
+            });
+        }
+
     }
 
 
