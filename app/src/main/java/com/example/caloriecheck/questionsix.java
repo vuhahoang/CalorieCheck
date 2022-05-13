@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class questionsix extends AppCompatActivity {
 
     NumberPicker date,month,year;
@@ -25,6 +28,8 @@ public class questionsix extends AppCompatActivity {
         month = findViewById(R.id.numberPickerMonth);
         year = findViewById(R.id.numberPickerYear);
         nextsix = findViewById(R.id.addfoodinfoodinfo);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        String getyear = sdf.format(new Date());
         sharedpreferences = getSharedPreferences("infomation",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
@@ -47,7 +52,7 @@ public class questionsix extends AppCompatActivity {
         year.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                int tuoi = 2022 - newVal;
+                int tuoi = Integer.parseInt(getyear) - newVal;
                 nextsix.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

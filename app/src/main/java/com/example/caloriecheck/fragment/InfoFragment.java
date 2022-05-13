@@ -10,19 +10,25 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -46,18 +52,30 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class InfoFragment extends Fragment {
-    SharedPreferences sharedPreferences,preferences;
-    TextView siandsu,tvSaveprofile,tvsua,tvlogout,tvgoal,tvweight,tvgoalweight,tvcalorie,tvbaa,tv52,tvtitlebaa;
-    LinearLayout logout,changePass;
+    SharedPreferences sharedPreferences,preferences,preferencesTimeChallenge;
+    TextView siandsu,tvSaveprofile,tvsua,tvlogout,tvgoal,tvweight,tvgoalweight,tvcalorie,tvbaa,tv52,tvtitlebaa,tvcaidat,tvgiay,tvchallenge,tvphut,tvgio,tvngay,tvnamechallenge,tvgiveup;
+    LinearLayout logout,changePass,lnosugar,lnosocola,lnofastfood,lnocaffe,lnoalcoho,lnomeat,lnocigarette;
     String muctieu;
     ImageView avatar;
     private static final int IMAGE_PICK_CODE =1000;
     private static final int PERMISSION_CODE = 1001;
     Uri imgUri;
     ProgressBar load,pBbaa;
+    CardView cvChallenge;
+    HorizontalScrollView hschallenge;
+    int count = 0;
+    int countMinute = 0;
+    int countHour = 0;
+    int countDay = 0;
+    Timer T;
 
 
 
@@ -82,6 +100,23 @@ public class InfoFragment extends Fragment {
          tv52 = view.findViewById(R.id.textView52);
          tvtitlebaa = view.findViewById(R.id.tvbaatitle);
          pBbaa = view.findViewById(R.id.progressBarbaa);
+         lnosugar = view.findViewById(R.id.chalnosugar);
+         cvChallenge = view.findViewById(R.id.layoutchallenge);
+         hschallenge = view.findViewById(R.id.horizontalScrollView3);
+         tvcaidat = view.findViewById(R.id.textView26);
+         tvgiay = view.findViewById(R.id.tvsecond);
+         tvchallenge = view.findViewById(R.id.textView60);
+         tvphut = view.findViewById(R.id.tvMinutechallenge);
+         tvgio = view.findViewById(R.id.tvhourchallenge);
+         tvngay= view.findViewById(R.id.tvdaychallenge);
+         lnosocola = view.findViewById(R.id.chalnosocola);
+         lnofastfood = view.findViewById(R.id.chalnofastfood);
+         lnoalcoho = view.findViewById(R.id.chalnoalcohol);
+         lnocaffe = view.findViewById(R.id.chalnocoffe);
+         lnomeat = view.findViewById(R.id.chalnomeat);
+         lnocigarette = view.findViewById(R.id.chalnocigarette);
+         tvnamechallenge = view.findViewById(R.id.textView55);
+         tvgiveup = view.findViewById(R.id.tvgiveupChallenge);
 
 
        
@@ -131,6 +166,8 @@ public class InfoFragment extends Fragment {
 //                startActivity(i);
 //            }
 //        });
+
+
 
         tvbaa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +238,123 @@ public class InfoFragment extends Fragment {
 
             }
         });
+
+        lnosugar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setChallenge();
+                tvnamechallenge.setText("Không đường");
+                cvChallenge.setBackgroundColor(Color.parseColor("#3093FF"));
+                preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+                editor.putBoolean("checkhave",true);
+                editor.commit();
+            }
+        });
+
+        lnosocola.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setChallenge();
+                tvnamechallenge.setText("Không Socola");
+                cvChallenge.setBackgroundColor(Color.parseColor("#A0522D"));
+                preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+                editor.putBoolean("checkhave",true);
+                editor.commit();
+            }
+        });
+
+        lnofastfood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setChallenge();
+                tvnamechallenge.setText("Không đồ ăn nhanh");
+                cvChallenge.setBackgroundColor(Color.parseColor("#29CF7F"));
+                preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+                editor.putBoolean("checkhave",true);
+                editor.commit();
+            }
+        });
+
+        lnocaffe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setChallenge();
+                tvnamechallenge.setText("Không cà phê");
+                cvChallenge.setBackgroundColor(Color.parseColor("#C5C6C7"));
+                preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+                editor.putBoolean("checkhave",true);
+                editor.commit();
+            }
+        });
+
+        lnoalcoho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setChallenge();
+                tvnamechallenge.setText("Không rượu bia");
+                cvChallenge.setBackgroundColor(Color.parseColor("#F28144"));
+                preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+                editor.putBoolean("checkhave",true);
+                editor.commit();
+            }
+        });
+
+        lnomeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setChallenge();
+                tvnamechallenge.setText("Không thịt");
+                cvChallenge.setBackgroundColor(Color.parseColor("#DC143C"));
+                preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+                editor.putBoolean("checkhave",true);
+                editor.commit();
+            }
+        });
+
+        lnocigarette.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setChallenge();
+                tvnamechallenge.setText("Không thuốc lá");
+                cvChallenge.setBackgroundColor(Color.parseColor("#3F3D3D"));
+                preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+                editor.putBoolean("checkhave",true);
+                editor.commit();
+            }
+        });
+
+        tvgiveup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder =new AlertDialog.Builder(getContext());
+                builder.setMessage("Bạn có chắc muốn dừng thử thách không?")
+                        .setCancelable(false)
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+                                preferencesTimeChallenge.edit().clear().apply();
+                                cvChallenge.setVisibility(View.GONE);
+                                hschallenge.setVisibility(View.VISIBLE);
+                                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvcaidat.getLayoutParams();
+                                params.topToBottom = R.id.horizontalScrollView3;
+                                tvcaidat.setLayoutParams(params);
+
+                            }
+                        })
+                        .setNegativeButton("Không",null);
+                builder.show();
+            }
+        });
+
+
 
         
         return view;
@@ -316,8 +470,10 @@ public class InfoFragment extends Fragment {
                 .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                         sharedPreferences.edit().clear().apply();
                         preferences.edit().clear().apply();
+                        preferencesTimeChallenge.edit().clear().apply();
                         Intent i = new Intent(getContext(), MainActivity.class);
                         startActivity(i);
                     }
@@ -333,7 +489,9 @@ public class InfoFragment extends Fragment {
                 .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                         preferences.edit().clear().apply();
+                        preferencesTimeChallenge.edit().clear().apply();
 
                         Intent i = new Intent(getContext(), MainActivity.class);
                         startActivity(i);
@@ -341,5 +499,203 @@ public class InfoFragment extends Fragment {
                 })
                 .setNegativeButton("Không",null);
         builder.show();
+    }
+
+    private void setChallenge(){
+        cvChallenge.setVisibility(View.VISIBLE);
+        hschallenge.setVisibility(View.GONE);
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvcaidat.getLayoutParams();
+        params.topToBottom = R.id.layoutchallenge;
+        tvcaidat.setLayoutParams(params);
+        settimestart();
+    }
+
+    private void settimestart(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
+        String timenow = sdf.format(new Date());
+        Log.d("che",timenow);
+
+//        SimpleDateFormat sdfsecondnow = new SimpleDateFormat("ss");
+//        SimpleDateFormat sdfminutenow = new SimpleDateFormat("mm");
+//        SimpleDateFormat sdfhournow = new SimpleDateFormat("kk");
+//        SimpleDateFormat sdfdaynow = new SimpleDateFormat("dd");
+//        SimpleDateFormat sdfmonthnow = new SimpleDateFormat("MM");
+//        int secondnow = Integer.parseInt(sdfsecondnow.format(new Date()));
+//        int minutenow = Integer.parseInt(sdfminutenow.format(new Date()));
+//        int hournow = Integer.parseInt(sdfhournow.format(new Date()));
+//        int daynow = Integer.parseInt(sdfdaynow.format(new Date()));
+//        int monthnow = Integer.parseInt(sdfmonthnow.format(new Date()));
+
+        preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+//        int secondshut = Integer.parseInt(preferencesTimeChallenge.getString("secondshut","0"));
+//        int minuteshut = Integer.parseInt(preferencesTimeChallenge.getString("minuteshut","0"));
+//        int hourshut = Integer.parseInt(preferencesTimeChallenge.getString("hourshut","0"));
+//        int dayshut = Integer.parseInt(preferencesTimeChallenge.getString("dayshut","0"));
+//        int monthshut = Integer.parseInt(preferencesTimeChallenge.getString("monthshut","0"));
+        String timeshut = preferencesTimeChallenge.getString("timeshut",timenow);
+        try {
+
+            Date date1 = sdf.parse(timenow);
+            Date date2 = sdf.parse(timeshut);
+            long dif = date1.getTime() - date2.getTime();
+            Log.d("chenhlech",dif/1000+"");
+            count = preferencesTimeChallenge.getInt("second",0);
+            countMinute = preferencesTimeChallenge.getInt("minute",0);
+            countHour = preferencesTimeChallenge.getInt("hour",0);
+            countDay = preferencesTimeChallenge.getInt("day",0);
+           if (dif/1000 >= 86400){
+               countDay = countDay + (int) ((dif/1000)/86400);
+               int du = (int) ((dif/1000)%86400);
+               if(du >= 3600){
+                   countHour = countHour + du/3600;
+                   int du1 = du%3600;
+                   if (du1 >= 60){
+                       countMinute = countMinute + du1/60;
+                       int du2 = du1%60;
+                       count = count + du2;
+                   }
+               }
+           }else if(dif/1000 >= 3600){
+               countHour = countHour +  (int) ((dif/1000)/3600);
+               int du1 = (int) ((dif/1000)%3600);
+
+               if (du1 >= 60){
+                   countMinute = countMinute + du1/60;
+                   int du2 = du1%60;
+                   count = count + du2;
+               }
+           }else if(dif/1000 >= 60){
+               countMinute = countMinute + (int) ((dif/1000)/60);
+               int du2 = (int) ((dif/1000)%60);
+               count = count + du2;
+           }else count = count + (int)(dif/1000);
+
+            T = new Timer();
+            T.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            count++;
+                            tvgiay.setText(count+"");
+                            tvphut.setText(countMinute+"");
+                            tvgio.setText(countHour+"");
+                            tvngay.setText(countDay+"");
+                            if(count>=60){
+                                count = 0;
+                                countMinute++;
+                                tvphut.setText(countMinute+"");
+                                if (countMinute >= 60){
+                                    countMinute = 0;
+                                    countHour++;
+                                    tvgio.setText(countHour+"");
+                                    if (countHour>=24){
+                                        countHour = 0;
+                                        countDay++;
+                                        tvngay.setText(countDay+"");
+                                    }
+                                }
+                            }
+
+
+
+
+                        }
+                    });
+                }
+            },1000,1000);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("trangthai","Start");
+
+        preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+        Boolean check = preferencesTimeChallenge.getBoolean("checkhave",false);
+        if (check){
+            setChallenge();
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("trangthai","resume");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
+//        SimpleDateFormat sdfsecond = new SimpleDateFormat("ss");
+//        SimpleDateFormat sdfminute = new SimpleDateFormat("mm");
+//        SimpleDateFormat sdfhour = new SimpleDateFormat("kk");
+//        SimpleDateFormat sdfday = new SimpleDateFormat("dd");
+//        SimpleDateFormat sdfmonth = new SimpleDateFormat("MM");
+        Log.d("trangthai","stop");
+        T.cancel();
+        preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+        editor.putInt("second",count);
+        editor.putInt("minute",countMinute);
+        editor.putInt("hour",countHour);
+        editor.putInt("day",countDay);
+        editor.putString("timeshut",sdf.format(new Date()));
+//        editor.putString("secondshut",sdfsecond.format(new Date()));
+//        editor.putString("minuteshut",sdfminute.format(new Date()));
+//        editor.putString("hourshut",sdfhour.format(new Date()));
+//        editor.putString("dayshut",sdfday.format(new Date()));
+//        editor.putString("monthshut",sdfmonth.format(new Date()));
+        editor.commit();
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("trangthai","destroyview");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("trangthai","destroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
+//        SimpleDateFormat sdfsecond = new SimpleDateFormat("ss");
+//        SimpleDateFormat sdfminute = new SimpleDateFormat("mm");
+//        SimpleDateFormat sdfhour = new SimpleDateFormat("kk");
+//        SimpleDateFormat sdfday = new SimpleDateFormat("dd");
+//        SimpleDateFormat sdfmonth = new SimpleDateFormat("MM");
+        Log.d("trangthai","detach");
+        T.cancel();
+        preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+        editor.putInt("second",count);
+        editor.putInt("minute",countMinute);
+        editor.putInt("hour",countHour);
+        editor.putInt("day",countDay);
+        editor.putString("timeshut",sdf.format(new Date()));
+//        editor.putString("secondshut",sdfsecond.format(new Date()));
+//        editor.putString("minuteshut",sdfminute.format(new Date()));
+//        editor.putString("hourshut",sdfhour.format(new Date()));
+//        editor.putString("dayshut",sdfday.format(new Date()));
+//        editor.putString("monthshut",sdfmonth.format(new Date()));
+        editor.commit();
     }
 }
