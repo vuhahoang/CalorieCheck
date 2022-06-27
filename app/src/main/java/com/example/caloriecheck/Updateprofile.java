@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class Updateprofile extends AppCompatActivity {
     Button save;
     String stitle;
     String muctieu,hoatdong;
+
 
 
     @Override
@@ -64,15 +66,23 @@ public class Updateprofile extends AppCompatActivity {
 
         if (stitle.equals("Mục tiêu")){
             muctieu = i.getStringExtra("goal");
+            Log.d("testso", muctieu+"ss");
             codegoal();
         }else if(stitle.equals("Cân nặng hiện tại")){
+            int cantv = i.getIntExtra("weight",0);
+            edweight.setText(cantv+"");
+            Log.d("testso", cantv+"ss");
             codeweight();
         }else if(stitle.equals("Cân nặng mong muốn")){
+            int canmttv = i.getIntExtra("goalweight",0);
+            edgoalweight.setText(canmttv+"");
             codegoalweight();
         }else if(stitle.equals("Tần suất hoạt động")){
             hoatdong = i.getStringExtra("activity");
             codeactivity();
         }else if(stitle.equals("Calorie trong ngày")){
+            int calotv = i.getIntExtra("calorie",0);
+            edcalorie.setText(calotv+"");
             codecalorie();
         }
 

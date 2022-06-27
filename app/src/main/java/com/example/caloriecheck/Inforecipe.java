@@ -15,9 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.caloriecheck.CustomApdapter.FoodAdapterHor;
 import com.example.caloriecheck.CustomApdapter.IngredientsAdapter;
 import com.example.caloriecheck.Model.FoodModel;
 import com.example.caloriecheck.Model.Ingredients;
+import com.example.caloriecheck.Model.RecipeModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,11 +37,15 @@ public class Inforecipe extends AppCompatActivity {
   RecyclerView rcingredients;
   IngredientsAdapter ingredientsAdapter;
   ArrayList<Ingredients> ingredients;
+  ArrayList<RecipeModel> recipeModels;
+  FoodAdapterHor foodAdapterHor;
   FirebaseDatabase firebaseDatabase;
-  DatabaseReference databaseReference,reference;
+  DatabaseReference databaseReference,reference,DRgetsimilar;
   ImageView imgtitle;
   Button btnadd;
   SharedPreferences sharedPreferences,sharedPreferencesdata;
+  RecyclerView rcsimilar;
+  int id;
 
 
     @Override
@@ -53,12 +59,17 @@ public class Inforecipe extends AppCompatActivity {
         imgtitle = findViewById(R.id.imgtitleinforecipe);
         tvintroduct = findViewById(R.id.tvintroductinforecipe);
         rcingredients = findViewById(R.id.rcingredients);
+        rcsimilar = findViewById(R.id.rcsimilar);
         btnadd = findViewById(R.id.btnaddrecipetodiary);
         ingredients = new ArrayList<>();
+        recipeModels = new ArrayList<>();
         ingredientsAdapter = new IngredientsAdapter(ingredients,Inforecipe.this);
         rcingredients.setAdapter(ingredientsAdapter);
+        foodAdapterHor = new FoodAdapterHor(recipeModels,this);
+        rcsimilar.setAdapter(foodAdapterHor);
         Intent i = getIntent();
-        int id = i.getIntExtra("keyid",0);
+        id = i.getIntExtra("keyid",0);
+        getRecipeSimilar();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Recipe").child(id+"").child("ingredients");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -170,5 +181,44 @@ public class Inforecipe extends AppCompatActivity {
 
 
 
+    }
+
+    private void getRecipeSimilar(){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Recipe").child(id+"");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                String type =  snapshot.child("type").getValue(String.class);
+                DRgetsimilar = firebaseDatabase.getReference("Recipe");
+                DRgetsimilar.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                              RecipeModel recipeModel = dataSnapshot.getValue(RecipeModel.class);
+                              if(recipeModel.getType().equals(type)) {
+                                  recipeModels.add(recipeModel);
+                                  foodAdapterHor.notifyDataSetChanged();
+
+
+                              }
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull  DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
     }
 }

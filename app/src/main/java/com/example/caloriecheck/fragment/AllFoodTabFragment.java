@@ -1,5 +1,6 @@
 package com.example.caloriecheck.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +24,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class AllFoodTabFragment extends Fragment {
     ArrayList<RecipeModel> recipeModelspopular,recipeModelscouter,recipeModelsnew;
     FoodAdapterHor foodAdapterHorpopular,foodAdapterHorcouter,foodAdapterHornew;
     RecyclerView rcphobien,rckiemsoat,rcmonmoi;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +45,7 @@ public class AllFoodTabFragment extends Fragment {
         recipeModelspopular = new ArrayList<>();
         recipeModelscouter = new ArrayList<>();
         recipeModelsnew = new ArrayList<>();
+        sharedPreferences = getContext().getSharedPreferences("infomation",MODE_PRIVATE);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Recipe");
         foodAdapterHorpopular = new FoodAdapterHor(recipeModelspopular,getContext());
@@ -53,6 +58,8 @@ public class AllFoodTabFragment extends Fragment {
         foodAdapterHorcouter.notifyDataSetChanged();
         foodAdapterHornew.notifyDataSetChanged();
 
+        int nhucau = sharedPreferences.getInt("nhucau",0);
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -61,10 +68,22 @@ public class AllFoodTabFragment extends Fragment {
                     RecipeModel recipeModel = dataSnapshot.getValue(RecipeModel.class);
                     if(recipeModel.getTag().equals("new")){
                         recipeModelsnew.add(recipeModel);
-                    }else if(recipeModel.getTag().equals("popular")){
-                        recipeModelspopular.add(recipeModel);
                     }else if(recipeModel.getCalorie() < 300){
                         recipeModelscouter.add(recipeModel);
+                    }
+
+                    if (nhucau == -500){
+                        if (recipeModel.getCalorie() < 400){
+                            recipeModelspopular.add(recipeModel);
+                        }
+                    }else if(nhucau == 0){
+                        if (recipeModel.getCalorie() > 400 && recipeModel.getCalorie()<600){
+                            recipeModelspopular.add(recipeModel);
+                        }
+                    }else if(nhucau == 500){
+                        if (recipeModel.getCalorie() > 600){
+                            recipeModelspopular.add(recipeModel);
+                        }
                     }
                     foodAdapterHorpopular.notifyDataSetChanged();
                     foodAdapterHorcouter.notifyDataSetChanged();

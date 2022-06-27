@@ -244,7 +244,7 @@ public class InfoFragment extends Fragment {
             public void onClick(View v) {
                 setChallenge();
                 tvnamechallenge.setText("Không đường");
-                cvChallenge.setBackgroundColor(Color.parseColor("#3093FF"));
+
                 preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
                 editor.putBoolean("checkhave",true);
@@ -257,7 +257,7 @@ public class InfoFragment extends Fragment {
             public void onClick(View v) {
                 setChallenge();
                 tvnamechallenge.setText("Không Socola");
-                cvChallenge.setBackgroundColor(Color.parseColor("#A0522D"));
+
                 preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
                 editor.putBoolean("checkhave",true);
@@ -270,7 +270,7 @@ public class InfoFragment extends Fragment {
             public void onClick(View v) {
                 setChallenge();
                 tvnamechallenge.setText("Không đồ ăn nhanh");
-                cvChallenge.setBackgroundColor(Color.parseColor("#29CF7F"));
+
                 preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
                 editor.putBoolean("checkhave",true);
@@ -283,7 +283,7 @@ public class InfoFragment extends Fragment {
             public void onClick(View v) {
                 setChallenge();
                 tvnamechallenge.setText("Không cà phê");
-                cvChallenge.setBackgroundColor(Color.parseColor("#C5C6C7"));
+
                 preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
                 editor.putBoolean("checkhave",true);
@@ -296,7 +296,7 @@ public class InfoFragment extends Fragment {
             public void onClick(View v) {
                 setChallenge();
                 tvnamechallenge.setText("Không rượu bia");
-                cvChallenge.setBackgroundColor(Color.parseColor("#F28144"));
+
                 preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
                 editor.putBoolean("checkhave",true);
@@ -309,7 +309,7 @@ public class InfoFragment extends Fragment {
             public void onClick(View v) {
                 setChallenge();
                 tvnamechallenge.setText("Không thịt");
-                cvChallenge.setBackgroundColor(Color.parseColor("#DC143C"));
+
                 preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
                 editor.putBoolean("checkhave",true);
@@ -322,7 +322,6 @@ public class InfoFragment extends Fragment {
             public void onClick(View v) {
                 setChallenge();
                 tvnamechallenge.setText("Không thuốc lá");
-                cvChallenge.setBackgroundColor(Color.parseColor("#3F3D3D"));
                 preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
                 editor.putBoolean("checkhave",true);
@@ -341,6 +340,11 @@ public class InfoFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
                                 preferencesTimeChallenge.edit().clear().apply();
+                                T.cancel();
+                                count =0;
+                                countDay = 0;
+                                countHour = 0;
+                                countMinute = 0;
                                 cvChallenge.setVisibility(View.GONE);
                                 hschallenge.setVisibility(View.VISIBLE);
                                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvcaidat.getLayoutParams();
@@ -513,62 +517,56 @@ public class InfoFragment extends Fragment {
     private void settimestart(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
         String timenow = sdf.format(new Date());
-        Log.d("che",timenow);
 
-//        SimpleDateFormat sdfsecondnow = new SimpleDateFormat("ss");
-//        SimpleDateFormat sdfminutenow = new SimpleDateFormat("mm");
-//        SimpleDateFormat sdfhournow = new SimpleDateFormat("kk");
-//        SimpleDateFormat sdfdaynow = new SimpleDateFormat("dd");
-//        SimpleDateFormat sdfmonthnow = new SimpleDateFormat("MM");
-//        int secondnow = Integer.parseInt(sdfsecondnow.format(new Date()));
-//        int minutenow = Integer.parseInt(sdfminutenow.format(new Date()));
-//        int hournow = Integer.parseInt(sdfhournow.format(new Date()));
-//        int daynow = Integer.parseInt(sdfdaynow.format(new Date()));
-//        int monthnow = Integer.parseInt(sdfmonthnow.format(new Date()));
 
         preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
-//        int secondshut = Integer.parseInt(preferencesTimeChallenge.getString("secondshut","0"));
-//        int minuteshut = Integer.parseInt(preferencesTimeChallenge.getString("minuteshut","0"));
-//        int hourshut = Integer.parseInt(preferencesTimeChallenge.getString("hourshut","0"));
-//        int dayshut = Integer.parseInt(preferencesTimeChallenge.getString("dayshut","0"));
-//        int monthshut = Integer.parseInt(preferencesTimeChallenge.getString("monthshut","0"));
+
+        Boolean check = preferencesTimeChallenge.getBoolean("checkhave",false);
+//
         String timeshut = preferencesTimeChallenge.getString("timeshut",timenow);
+        Log.d("time",timenow);
+        Log.d("time",timeshut);
         try {
+            if(check) {
+                Date date1 = sdf.parse(timenow);
+                Date date2 = sdf.parse(timeshut);
+                long dif = date1.getTime() - date2.getTime();
+                Log.d("chenhlech", dif / 1000 + "");
+                count = preferencesTimeChallenge.getInt("second", 0);
+                countMinute = preferencesTimeChallenge.getInt("minute", 0);
+                countHour = preferencesTimeChallenge.getInt("hour", 0);
+                countDay = preferencesTimeChallenge.getInt("day", 0);
+                if (dif / 1000 >= 86400) {
+                    countDay = countDay + (int) ((dif / 1000) / 86400);
+                    int du = (int) ((dif / 1000) % 86400);
+                    if (du >= 3600) {
+                        countHour = countHour + du / 3600;
+                        int du1 = du % 3600;
+                        if (du1 >= 60) {
+                            countMinute = countMinute + du1 / 60;
+                            int du2 = du1 % 60;
+                            count = count + du2;
+                        }
+                    }
+                } else if (dif / 1000 >= 3600) {
+                    countHour = countHour + (int) ((dif / 1000) / 3600);
+                    int du1 = (int) ((dif / 1000) % 3600);
 
-            Date date1 = sdf.parse(timenow);
-            Date date2 = sdf.parse(timeshut);
-            long dif = date1.getTime() - date2.getTime();
-            Log.d("chenhlech",dif/1000+"");
-            count = preferencesTimeChallenge.getInt("second",0);
-            countMinute = preferencesTimeChallenge.getInt("minute",0);
-            countHour = preferencesTimeChallenge.getInt("hour",0);
-            countDay = preferencesTimeChallenge.getInt("day",0);
-           if (dif/1000 >= 86400){
-               countDay = countDay + (int) ((dif/1000)/86400);
-               int du = (int) ((dif/1000)%86400);
-               if(du >= 3600){
-                   countHour = countHour + du/3600;
-                   int du1 = du%3600;
-                   if (du1 >= 60){
-                       countMinute = countMinute + du1/60;
-                       int du2 = du1%60;
-                       count = count + du2;
-                   }
-               }
-           }else if(dif/1000 >= 3600){
-               countHour = countHour +  (int) ((dif/1000)/3600);
-               int du1 = (int) ((dif/1000)%3600);
-
-               if (du1 >= 60){
-                   countMinute = countMinute + du1/60;
-                   int du2 = du1%60;
-                   count = count + du2;
-               }
-           }else if(dif/1000 >= 60){
-               countMinute = countMinute + (int) ((dif/1000)/60);
-               int du2 = (int) ((dif/1000)%60);
-               count = count + du2;
-           }else count = count + (int)(dif/1000);
+                    if (du1 >= 60) {
+                        countMinute = countMinute + du1 / 60;
+                        int du2 = du1 % 60;
+                        count = count + du2;
+                    }
+                } else if (dif / 1000 >= 60) {
+                    countMinute = countMinute + (int) ((dif / 1000) / 60);
+                    int du2 = (int) ((dif / 1000) % 60);
+                    count = count + du2;
+                } else {count = count + (int) (dif / 1000);
+                countMinute = 0;
+                countHour = 0;
+                countDay = 0;
+                }
+            }
 
             T = new Timer();
             T.scheduleAtFixedRate(new TimerTask() {
@@ -578,6 +576,7 @@ public class InfoFragment extends Fragment {
                         @Override
                         public void run() {
                             count++;
+
                             tvgiay.setText(count+"");
                             tvphut.setText(countMinute+"");
                             tvgio.setText(countHour+"");
@@ -637,27 +636,23 @@ public class InfoFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
-//        SimpleDateFormat sdfsecond = new SimpleDateFormat("ss");
-//        SimpleDateFormat sdfminute = new SimpleDateFormat("mm");
-//        SimpleDateFormat sdfhour = new SimpleDateFormat("kk");
-//        SimpleDateFormat sdfday = new SimpleDateFormat("dd");
-//        SimpleDateFormat sdfmonth = new SimpleDateFormat("MM");
-        Log.d("trangthai","stop");
-        T.cancel();
         preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
-        editor.putInt("second",count);
-        editor.putInt("minute",countMinute);
-        editor.putInt("hour",countHour);
-        editor.putInt("day",countDay);
-        editor.putString("timeshut",sdf.format(new Date()));
-//        editor.putString("secondshut",sdfsecond.format(new Date()));
-//        editor.putString("minuteshut",sdfminute.format(new Date()));
-//        editor.putString("hourshut",sdfhour.format(new Date()));
-//        editor.putString("dayshut",sdfday.format(new Date()));
-//        editor.putString("monthshut",sdfmonth.format(new Date()));
-        editor.commit();
+        Boolean check = preferencesTimeChallenge.getBoolean("checkhave",false);
+        if (check) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
+//
+            Log.d("trangthai", "stop");
+            T.cancel();
+            preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+            editor.putInt("second", count);
+            editor.putInt("minute", countMinute);
+            editor.putInt("hour", countHour);
+            editor.putInt("day", countDay);
+            editor.putString("timeshut", sdf.format(new Date()));
+//
+            editor.commit();
+        }
 
     }
 
@@ -676,26 +671,22 @@ public class InfoFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
-//        SimpleDateFormat sdfsecond = new SimpleDateFormat("ss");
-//        SimpleDateFormat sdfminute = new SimpleDateFormat("mm");
-//        SimpleDateFormat sdfhour = new SimpleDateFormat("kk");
-//        SimpleDateFormat sdfday = new SimpleDateFormat("dd");
-//        SimpleDateFormat sdfmonth = new SimpleDateFormat("MM");
-        Log.d("trangthai","detach");
-        T.cancel();
         preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
-        editor.putInt("second",count);
-        editor.putInt("minute",countMinute);
-        editor.putInt("hour",countHour);
-        editor.putInt("day",countDay);
-        editor.putString("timeshut",sdf.format(new Date()));
-//        editor.putString("secondshut",sdfsecond.format(new Date()));
-//        editor.putString("minuteshut",sdfminute.format(new Date()));
-//        editor.putString("hourshut",sdfhour.format(new Date()));
-//        editor.putString("dayshut",sdfday.format(new Date()));
-//        editor.putString("monthshut",sdfmonth.format(new Date()));
-        editor.commit();
+        Boolean check = preferencesTimeChallenge.getBoolean("checkhave",false);
+        if(check) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
+//
+            Log.d("trangthai", "detach");
+            T.cancel();
+            preferencesTimeChallenge = getContext().getSharedPreferences("TimeChallenge", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferencesTimeChallenge.edit();
+            editor.putInt("second", count);
+            editor.putInt("minute", countMinute);
+            editor.putInt("hour", countHour);
+            editor.putInt("day", countDay);
+            editor.putString("timeshut", sdf.format(new Date()));
+//
+            editor.commit();
+        }
     }
 }
