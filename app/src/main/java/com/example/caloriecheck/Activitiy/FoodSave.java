@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,9 +12,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.caloriecheck.CustomApdapter.FoodAdapterCalo;
 import com.example.caloriecheck.CustomApdapter.FoodAdapterCaloFS;
 import com.example.caloriecheck.Model.FoodModel;
+import com.example.caloriecheck.R;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +20,15 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.caloriecheck.Add_Food_Activity;
+import com.example.caloriecheck.Activitiy.Add_Food_Activity;
 import com.example.caloriecheck.CustomApdapter.NoteAdapter;
-import com.example.caloriecheck.FoodSave;
-import com.example.caloriecheck.Login;
+import com.example.caloriecheck.Activitiy.FoodSave;
+import com.example.caloriecheck.Activitiy.Login;
 import com.example.caloriecheck.Model.Diary;
-import com.example.caloriecheck.Model.FoodModel;
-import com.example.caloriecheck.Notes;
-import com.example.caloriecheck.Pedometer;
+import com.example.caloriecheck.Activitiy.Notes;
+import com.example.caloriecheck.Activitiy.Pedometer;
 import com.example.caloriecheck.R;
-import com.example.caloriecheck.learn1;
+import com.example.caloriecheck.Activitiy.learn1;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +36,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

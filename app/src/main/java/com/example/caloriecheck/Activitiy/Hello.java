@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.caloriecheck.R;
 
 public class Hello extends AppCompatActivity {
     Button BtnTang ,BtnGiam,BtnGiu;

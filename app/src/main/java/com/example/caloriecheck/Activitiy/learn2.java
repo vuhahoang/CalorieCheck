@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.widget.Chronometer;
 import com.example.caloriecheck.Model.Dayrecipe;
 import com.example.caloriecheck.Model.Plan;
 import com.example.caloriecheck.Model.RecipeModel;
+import com.example.caloriecheck.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

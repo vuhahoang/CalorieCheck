@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +19,7 @@ import com.example.caloriecheck.CustomApdapter.IngredientsAdapter;
 import com.example.caloriecheck.Model.FoodModel;
 import com.example.caloriecheck.Model.Ingredients;
 import com.example.caloriecheck.Model.RecipeModel;
+import com.example.caloriecheck.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

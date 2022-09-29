@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caloriecheck.Model.Diary;
-import com.example.caloriecheck.Notes;
+import com.example.caloriecheck.Activitiy.Notes;
 import com.example.caloriecheck.R;
 
 import java.util.ArrayList;

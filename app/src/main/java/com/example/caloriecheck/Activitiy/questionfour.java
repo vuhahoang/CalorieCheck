@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,33 +9,39 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
-public class questionthree extends AppCompatActivity {
+import com.example.caloriecheck.R;
+
+public class questionfour extends AppCompatActivity {
     NumberPicker numberPicker;
-    int canmoi;
-    Button nextthree;
+    int chieucao;
+    Button nextfour;
     SharedPreferences sharedpreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_questionthree);
-        numberPicker = findViewById(R.id.numberPicker3);
-        numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(500);
-        nextthree = findViewById(R.id.nextthere);
+        setContentView(R.layout.activity_questionfour);
+        numberPicker = findViewById(R.id.numberPicker4);
+        numberPicker.setMinValue(50);
+        numberPicker.setMaxValue(300);
+        nextfour = findViewById(R.id.nextfour);
         sharedpreferences = getSharedPreferences("infomation",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
+
+
+
 
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                canmoi = newVal;
-                nextthree.setOnClickListener(new View.OnClickListener() {
+                chieucao = newVal;
+                nextfour.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        editor.putInt("canmoi",canmoi);
+                        editor.putInt("chieucao",chieucao);
                         editor.commit();
-                        Intent j = new Intent(questionthree.this,questionfour.class);
+                        Intent j = new Intent(questionfour.this,questionfive.class);
                         startActivity(j);
                     }
                 });

@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.shape.InterpolateOnScrollPositionChangeHelper;
+import com.example.caloriecheck.R;
 
 public class Updateprofile extends AppCompatActivity {
     TextView title,tangcan,giucan,giamcan,vdi,vdn,vdvua,vds,vdv;

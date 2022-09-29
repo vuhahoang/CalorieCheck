@@ -10,12 +10,11 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.example.caloriecheck.AddRecipeAdmin;
+import com.example.caloriecheck.Activitiy.AddRecipeAdmin;
 import com.example.caloriecheck.R;
-import com.example.caloriecheck.RecipesAdapter;
+import com.example.caloriecheck.Activitiy.RecipesAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 

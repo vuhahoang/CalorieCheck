@@ -11,14 +11,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.caloriecheck.DayInPlan;
+import com.example.caloriecheck.Activitiy.DayInPlan;
 import com.example.caloriecheck.Model.Plan;
 import com.example.caloriecheck.R;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 

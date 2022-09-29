@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,11 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.caloriecheck.Model.FoodModel;
+import com.example.caloriecheck.R;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 public class FoodInfo extends AppCompatActivity {
     TextView tvName,tvCarb,tvPro,tvFat,tvCalo,tvCarb1,tvPro1,tvFat1,tvCalo1,title;

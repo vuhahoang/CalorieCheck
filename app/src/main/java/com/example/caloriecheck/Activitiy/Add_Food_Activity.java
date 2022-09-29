@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +28,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.caloriecheck.CustomApdapter.FoodAdapterCalo;
 import com.example.caloriecheck.Model.FoodModel;
+import com.example.caloriecheck.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -138,7 +139,7 @@ public class Add_Food_Activity extends AppCompatActivity {
                 ci.setVisibility(View.VISIBLE);
                 String foodsearch =  edfood.getText().toString();
                 if(foodsearch.isEmpty()){
-                    Toast.makeText(Add_Food_Activity.this,"Không được bỏ chống ô tìm kiếm",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_Food_Activity.this,"Không được bỏ trống ô tìm kiếm",Toast.LENGTH_SHORT).show();
                     return;
                 }else {
                     FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
