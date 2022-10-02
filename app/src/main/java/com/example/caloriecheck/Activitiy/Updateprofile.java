@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.caloriecheck.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class Updateprofile extends AppCompatActivity {
     TextView title,tangcan,giucan,giamcan,vdi,vdn,vdvua,vds,vdv;
     LinearLayout layoutgoal,layoutweight,layoutgoalweight,layoutactivity,layoutcalorie,bot,cfloseweight,cfbuildmuscle,cfmaintainweight,cfvdi,cfvdn,cfvdvua,cfvds,cfvdv;

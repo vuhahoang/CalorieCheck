@@ -21,6 +21,9 @@ import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class FoodInfo extends AppCompatActivity {
     TextView tvName,tvCarb,tvPro,tvFat,tvCalo,tvCarb1,tvPro1,tvFat1,tvCalo1,title;
     EditText edgram;

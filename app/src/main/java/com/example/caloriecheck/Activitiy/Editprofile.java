@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.example.caloriecheck.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class Editprofile extends AppCompatActivity {
     TextView goal,weight,goalweight,activity,calorie;
     LinearLayout llgoal,llweight,llgoalweight,llactivity,llcalorie;

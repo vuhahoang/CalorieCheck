@@ -32,6 +32,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class BeforeandAfter extends AppCompatActivity {
     ImageView before,after;
     private static final int IMAGE_PICK_BEFORE =1000;

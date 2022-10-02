@@ -10,6 +10,9 @@ import android.widget.Button;
 
 import com.example.caloriecheck.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class questionfive extends AppCompatActivity {
     Button btnNam, btnNu;
     private final int nam = 5;

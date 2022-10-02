@@ -9,6 +9,10 @@ import android.os.Handler;
 
 import com.example.caloriecheck.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.HiltAndroidApp;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     private static int SPlASH_SCREEN = 5000;
     SharedPreferences sharedpreferences;

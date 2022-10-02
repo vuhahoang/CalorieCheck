@@ -32,6 +32,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class Inforecipe extends AppCompatActivity {
   TextView tvname,tvkcal,tvtime,tvlever,tvintroduct;
   RecyclerView rcingredients;

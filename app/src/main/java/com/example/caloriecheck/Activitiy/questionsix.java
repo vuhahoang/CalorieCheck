@@ -14,6 +14,9 @@ import com.example.caloriecheck.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class questionsix extends AppCompatActivity {
 
     NumberPicker date,month,year;

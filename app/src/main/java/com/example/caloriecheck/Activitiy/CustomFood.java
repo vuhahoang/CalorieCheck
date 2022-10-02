@@ -16,6 +16,9 @@ import com.example.caloriecheck.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class CustomFood extends AppCompatActivity {
     EditText EdName,EdCalorie,EdCarbs,EdProtein,EdFat;
     Button add;

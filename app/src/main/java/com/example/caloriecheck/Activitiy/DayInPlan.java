@@ -17,6 +17,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class DayInPlan extends AppCompatActivity {
     RecyclerView rc;
     DayPlan dayPlanAdapter;

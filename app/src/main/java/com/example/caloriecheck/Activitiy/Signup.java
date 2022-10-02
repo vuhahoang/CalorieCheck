@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.caloriecheck.Model.Input.SignUpInputModel;
+import com.example.caloriecheck.Model.Input.SignUpInputModelBuilder;
 import com.example.caloriecheck.Model.User;
 import com.example.caloriecheck.R;
+import com.example.caloriecheck.Repository.IUserRepository;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,12 +22,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class Signup extends AppCompatActivity {
 
     EditText edName,edUserName,edPassword,edEmail;
     Button btnSignUp;
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+//    FirebaseDatabase rootNode;
+//    DatabaseReference reference;
+    @Inject
+    IUserRepository userRepository;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -36,15 +46,14 @@ public class Signup extends AppCompatActivity {
         edPassword = findViewById(R.id.edpasswordsu);
         edEmail = findViewById(R.id.edemailsu);
         btnSignUp = findViewById(R.id.signupbtn);
-
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!validateName() | !validateUsername() | !validateEmail() | !validatePassword() ){
                     return;
                 }else {
-                    rootNode = FirebaseDatabase.getInstance();
-                    reference = rootNode.getReference("User");
+//                    rootNode = FirebaseDatabase.getInstance();
+//                    reference = rootNode.getReference("User");
                     String name = edName.getText().toString().trim();
                     String username = edUserName.getText().toString().trim();
                     String email = edEmail.getText().toString().trim();
@@ -58,17 +67,19 @@ public class Signup extends AppCompatActivity {
                     int tuoi = sharedPreferences.getInt("tuoi",0);
                     int canmt = sharedPreferences.getInt("canmoi",0);
                     int canbt = sharedPreferences.getInt("canbd",0);
-
-                    Query checkUser = reference.orderByChild("username").equalTo(username);
-                    checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull  DataSnapshot snapshot) {
-                            if (snapshot.exists()){
-                                edUserName.setError("Tài khoản đã tồn tại");
-                            }else {
-                                User user = new User(name,username,email,password,tuoi,chieucao,can,nhucau,canmt,r,k,canbt);
-                                reference.child(username).setValue(user);
-                                sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
+                    userRepository.signUp(new SignUpInputModelBuilder().setName(name)
+                            .setUsername(username)
+                            .setEmail(email)
+                            .setPassword(password)
+                            .setNhucau(nhucau)
+                            .setR(r)
+                            .setTuoi(tuoi)
+                            .setCan(can)
+                            .setChieucao(chieucao)
+                            .setK(k)
+                            .setCanmt(canmt)
+                            .setCanbt(canbt).createSignUpInputModel(),edUserName);
+                    sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("name",name);
                                 editor.putString("username",username);
@@ -77,15 +88,32 @@ public class Signup extends AppCompatActivity {
                                 editor.commit();
                                 Intent i = new Intent(Signup.this,Home.class);
                                 startActivity(i);
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull  DatabaseError error) {
-
-                        }
-                    });
+//                    Query checkUser = reference.orderByChild("username").equalTo(username);
+//                    checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull  DataSnapshot snapshot) {
+//                            if (snapshot.exists()){
+//                                edUserName.setError("Tài khoản đã tồn tại");
+//                            }else {
+//                                User user = new User(name,username,email,password,tuoi,chieucao,can,nhucau,canmt,r,k,canbt);
+//                                reference.child(username).setValue(user);
+//                                sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
+//                                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                                editor.putString("name",name);
+//                                editor.putString("username",username);
+//                                editor.putBoolean("checklogin",true);
+//
+//                                editor.commit();
+//                                Intent i = new Intent(Signup.this,Home.class);
+//                                startActivity(i);
+//                            }
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull  DatabaseError error) {
+//
+//                        }
 
 
                 }

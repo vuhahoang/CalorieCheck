@@ -25,6 +25,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class AddRecipeAdmin extends AppCompatActivity {
     EditText ed,tag,type;
     Button add,fun;

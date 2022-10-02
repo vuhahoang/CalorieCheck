@@ -22,6 +22,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class RecipeinDay extends AppCompatActivity {
     ImageView imgtitle ;
     TextView tvtitle;

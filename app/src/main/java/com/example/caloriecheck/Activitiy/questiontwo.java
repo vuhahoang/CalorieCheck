@@ -11,6 +11,9 @@ import android.widget.NumberPicker;
 
 import com.example.caloriecheck.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class questiontwo extends AppCompatActivity {
     NumberPicker numberPicker;
     Button nexttwo;

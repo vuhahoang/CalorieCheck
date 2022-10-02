@@ -40,6 +40,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class Notes extends AppCompatActivity {
     TextView tvday;
     EditText edcontent;

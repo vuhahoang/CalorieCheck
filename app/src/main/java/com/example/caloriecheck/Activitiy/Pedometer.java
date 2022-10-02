@@ -18,6 +18,9 @@ import com.example.caloriecheck.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class Pedometer extends AppCompatActivity {
     EditText edPedometer;
     TextView tvPedometer;

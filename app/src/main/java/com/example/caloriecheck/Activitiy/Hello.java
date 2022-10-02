@@ -10,6 +10,9 @@ import android.widget.Button;
 
 import com.example.caloriecheck.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class Hello extends AppCompatActivity {
     Button BtnTang ,BtnGiam,BtnGiu;
     SharedPreferences sharedPreferences;

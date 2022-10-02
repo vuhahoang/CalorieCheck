@@ -1,4 +1,4 @@
-package com.example.caloriecheck.Activitiy;
+package com.example.caloriecheck.Adapter;
 
 import android.content.Context;
 
@@ -11,6 +11,8 @@ import com.example.caloriecheck.fragment.AllFoodTabFragment;
 import com.example.caloriecheck.fragment.LoveFoodTabFragment;
 import com.example.caloriecheck.fragment.NewFoodTabFragment;
 import com.example.caloriecheck.fragment.PopularFoodTabFragment;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 public class RecipesAdapter extends FragmentPagerAdapter {
 

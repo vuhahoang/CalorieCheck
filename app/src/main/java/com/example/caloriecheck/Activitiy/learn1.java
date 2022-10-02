@@ -17,8 +17,9 @@ import com.example.caloriecheck.R;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import me.relex.circleindicator.CircleIndicator3;
-
+@AndroidEntryPoint
 public class learn1 extends AppCompatActivity {
 
     ViewPager2 viewPager2;

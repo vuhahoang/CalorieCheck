@@ -52,6 +52,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class Add_Food_Activity extends AppCompatActivity {
     TextView name,calo,protein,carb,fat;
     Button btnTim;

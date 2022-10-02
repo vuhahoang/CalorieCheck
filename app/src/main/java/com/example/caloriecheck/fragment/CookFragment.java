@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.caloriecheck.Activitiy.AddRecipeAdmin;
 import com.example.caloriecheck.R;
-import com.example.caloriecheck.Activitiy.RecipesAdapter;
+import com.example.caloriecheck.Adapter.RecipesAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 
