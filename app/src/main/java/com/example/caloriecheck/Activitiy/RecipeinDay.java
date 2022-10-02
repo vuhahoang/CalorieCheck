@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.caloriecheck.CustomApdapter.FoodAdapterVer;
 import com.example.caloriecheck.Model.RecipeModel;
 import com.example.caloriecheck.R;
+import com.example.caloriecheck.Repository.IRecipeRepository;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +23,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -31,8 +34,10 @@ public class RecipeinDay extends AppCompatActivity {
     RecyclerView rc;
     ArrayList<RecipeModel> recipeModels;
     FoodAdapterVer foodAdapterVer;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    @Inject
+    IRecipeRepository recipeRepository;
+//    FirebaseDatabase firebaseDatabase;
+//    DatabaseReference databaseReference;
 
 
     @Override
@@ -42,32 +47,30 @@ public class RecipeinDay extends AppCompatActivity {
         imgtitle = findViewById(R.id.imgRecipeinDay);
         tvtitle = findViewById(R.id.tvnameRecipeinday);
         rc = findViewById(R.id.rcRecipeinDay);
-        firebaseDatabase = FirebaseDatabase.getInstance();
+//        firebaseDatabase = FirebaseDatabase.getInstance();
 
         Intent i = getIntent();
         tvtitle.setText(i.getStringExtra("tvtitle"));
         Picasso.get().load(i.getStringExtra("imgtitle")).into( imgtitle);
-        recipeModels = new ArrayList<>();
         ArrayList<String> recipeid =  i.getStringArrayListExtra("idrecipe");
-        foodAdapterVer = new FoodAdapterVer(recipeModels,this);
-
-        for(int j = 0;j<recipeid.size();j++){
-            databaseReference = firebaseDatabase.getReference("Recipe").child(recipeid.get(j));
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull  DataSnapshot snapshot) {
-                    RecipeModel recipeModel = snapshot.getValue(RecipeModel.class);
-                    recipeModels.add(recipeModel);
-                    foodAdapterVer.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull  DatabaseError error) {
-
-                }
-            });
-        }
-
+        foodAdapterVer = new FoodAdapterVer(recipeRepository.getRecipeList(recipeid.size(),recipeid),this);
+        foodAdapterVer.notifyDataSetChanged();
+//        for(int j = 0;j<recipeid.size();j++){
+//            databaseReference = firebaseDatabase.getReference("Recipe").child(recipeid.get(j));
+//            databaseReference.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull  DataSnapshot snapshot) {
+//                    RecipeModel recipeModel = snapshot.getValue(RecipeModel.class);
+//                    recipeModels.add(recipeModel);
+//                    foodAdapterVer.notifyDataSetChanged();
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull  DatabaseError error) {
+//
+//                }
+//            });
+//        }
         rc.setAdapter(foodAdapterVer);
     }
 }

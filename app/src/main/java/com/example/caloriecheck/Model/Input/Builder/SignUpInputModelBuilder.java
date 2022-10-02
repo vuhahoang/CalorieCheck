@@ -1,4 +1,6 @@
-package com.example.caloriecheck.Model.Input;
+package com.example.caloriecheck.Model.Input.Builder;
+
+import com.example.caloriecheck.Model.Input.SignUpInputModel;
 
 public class SignUpInputModelBuilder {
     private String name;
