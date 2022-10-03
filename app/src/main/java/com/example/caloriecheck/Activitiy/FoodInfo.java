@@ -66,7 +66,7 @@ public class FoodInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(edgram.getText().toString().isEmpty()){
-                    Toast.makeText(FoodInfo.this,"Vui lòng nhập nhá trị gram",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FoodInfo.this,"Vui lòng nhập giá trị gram",Toast.LENGTH_SHORT).show();
                 }else {
                     if (!check){
                         Float sogram = Float.parseFloat(edgram.getText().toString());
