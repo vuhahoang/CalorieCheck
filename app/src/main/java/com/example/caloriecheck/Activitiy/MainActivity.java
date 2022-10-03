@@ -1,17 +1,13 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 
-import java.util.Random;
+import com.example.caloriecheck.R;
 
 public class MainActivity extends AppCompatActivity {
     private static int SPlASH_SCREEN = 5000;

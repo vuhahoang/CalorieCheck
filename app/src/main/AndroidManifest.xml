@@ -15,32 +15,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalorieCheck">
-        <activity android:name=".RecipeinDay"></activity>
-        <activity android:name=".DayInPlan" />
-        <activity android:name=".Pedometer" />
-        <activity android:name=".BeforeandAfter" />
-        <activity android:name=".Updateprofile" />
-        <activity android:name=".Editprofile" />
-        <activity android:name=".AddRecipeAdmin" />
-        <activity android:name=".Inforecipe" />
-        <activity android:name=".learn2" />
-        <activity android:name=".learn1" />
-        <activity android:name=".Notes" />
-        <activity android:name=".FoodSave" />
-        <activity android:name=".Signup" />
-        <activity android:name=".Login" />
-        <activity android:name=".FoodInfo" />
-        <activity android:name=".Add_Food_Activity" />
-        <activity android:name=".CustomFood" />
-        <activity android:name=".Home" />
-        <activity android:name=".questionsix" />
-        <activity android:name=".questionfive" />
-        <activity android:name=".questionfour" />
-        <activity android:name=".questionthree" />
-        <activity android:name=".questiontwo" />
-        <activity android:name=".questionone" />
-        <activity android:name=".Hello" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activitiy.RecipeinDay" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".Activitiy.DayInPlan"  android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Pedometer"  android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.BeforeandAfter" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Updateprofile" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Editprofile" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.AddRecipeAdmin" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Inforecipe" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.learn2" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.learn1" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Notes" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.FoodSave" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Signup" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Login" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.FoodInfo" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Add_Food_Activity" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.CustomFood" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Home" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.questionsix" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.questionfive" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.questionfour" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.questionthree" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.questiontwo" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.questionone" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.Hello" android:screenOrientation="portrait" />
+        <activity android:name=".Activitiy.MainActivity" android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

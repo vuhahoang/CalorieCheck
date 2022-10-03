@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.caloriecheck.R;
 import com.example.caloriecheck.fragment.CookFragment;
 import com.example.caloriecheck.fragment.DiaryFragment;
 import com.example.caloriecheck.fragment.HomeFragment;

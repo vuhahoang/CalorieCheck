@@ -12,8 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.caloriecheck.Inforecipe;
-import com.example.caloriecheck.Model.FoodModel;
+import com.example.caloriecheck.Activitiy.Inforecipe;
 import com.example.caloriecheck.Model.RecipeModel;
 import com.example.caloriecheck.R;
 import com.squareup.picasso.Picasso;

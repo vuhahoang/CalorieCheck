@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.example.caloriecheck.CustomApdapter.FragmentAdapter;
 import com.example.caloriecheck.Model.ContentPager;
+import com.example.caloriecheck.R;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;

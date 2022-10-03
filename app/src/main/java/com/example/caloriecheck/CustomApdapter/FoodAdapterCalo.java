@@ -1,6 +1,5 @@
 package com.example.caloriecheck.CustomApdapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,17 +15,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.caloriecheck.FoodInfo;
+import com.example.caloriecheck.Activitiy.FoodInfo;
 import com.example.caloriecheck.Model.FoodModel;
 import com.example.caloriecheck.R;
 import com.google.gson.Gson;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 public class FoodAdapterCalo extends RecyclerView.Adapter<FoodAdapterCalo.ViewHolder> {
     Context context;

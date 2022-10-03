@@ -1,4 +1,4 @@
-package com.example.caloriecheck;
+package com.example.caloriecheck.Activitiy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.caloriecheck.Model.User;
+import com.example.caloriecheck.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -96,7 +97,7 @@ public class Signup extends AppCompatActivity {
         String val = edName.getText().toString().trim();
 
         if (val.isEmpty()) {
-            edName.setError("Tên không được chống");
+            edName.setError("Tên không được trống");
             return false;
         }
         else {
@@ -111,7 +112,7 @@ public class Signup extends AppCompatActivity {
         String noWhiteSpace = "\\A\\w{4,20}\\z";
 
         if (val.isEmpty()) {
-            edUserName.setError("Tài khoản không được chống");
+            edUserName.setError("Tài khoản không được trống");
             return false;
         } else if (val.length() >= 15) {
             edUserName.setError("Tài khoản quá dài");
@@ -131,7 +132,7 @@ public class Signup extends AppCompatActivity {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         if (val.isEmpty()) {
-            edEmail.setError("Email không được bỏ chống");
+            edEmail.setError("Email không được bỏ trống");
             return false;
         } else if (!val.matches(emailPattern)) {
             edEmail.setError("Email không hợp lệ");
@@ -155,7 +156,7 @@ public class Signup extends AppCompatActivity {
                 "$";
 
         if (val.isEmpty()) {
-            edPassword.setError("Mật khẩu không được chống");
+            edPassword.setError("Mật khẩu không được trống");
             return false;
         } else if (!val.matches(passwordVal)) {
             edPassword.setError("Mật khẩu quá yếu");
