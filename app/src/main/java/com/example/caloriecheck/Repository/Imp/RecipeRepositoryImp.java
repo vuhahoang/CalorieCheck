@@ -46,4 +46,14 @@ public class RecipeRepositoryImp implements IRecipeRepository {
         }
         return recipeModelList;
     }
+
+    @Override
+    public FirebaseDatabase getFirebaseDatabase() {
+        return this.firebaseDatabase;
+    }
+
+    @Override
+    public DatabaseReference getDatabaseReference() {
+        return this.databaseReference;
+    }
 }

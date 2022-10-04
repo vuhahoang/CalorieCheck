@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import com.example.caloriecheck.Model.FoodModel;
 import com.example.caloriecheck.R;
+import com.example.caloriecheck.Repository.ICustomFoodRepository;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -22,8 +25,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CustomFood extends AppCompatActivity {
     EditText EdName,EdCalorie,EdCarbs,EdProtein,EdFat;
     Button add;
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    @Inject
+    ICustomFoodRepository customFoodRepository;
+//    FirebaseDatabase rootNode;
+//    DatabaseReference reference;
     FoodModel foodModel;
     TextView title;
     ImageView imgback;
@@ -54,10 +59,8 @@ public class CustomFood extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!EdName.getText().toString().isEmpty() | !EdCalorie.getText().toString().isEmpty() | !EdCarbs.getText().toString().isEmpty() | !EdProtein.getText().toString().isEmpty() | !EdFat.getText().toString().isEmpty() ){
-                    rootNode = FirebaseDatabase.getInstance();
-                    reference = rootNode.getReference("FoodCustoms");
                     foodModel = new FoodModel(EdName.getText().toString().trim(),EdCalorie.getText().toString().trim(),EdCarbs.getText().toString().trim(),EdProtein.getText().toString().trim(),EdFat.getText().toString().trim(),"1");
-                    reference.child(EdName.getText().toString().trim()).setValue(foodModel);
+                    customFoodRepository.addFood(foodModel);
                     Toast.makeText(CustomFood.this,"Đã thêm",Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }else {

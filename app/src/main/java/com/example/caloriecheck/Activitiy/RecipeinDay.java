@@ -47,16 +47,16 @@ public class RecipeinDay extends AppCompatActivity {
         imgtitle = findViewById(R.id.imgRecipeinDay);
         tvtitle = findViewById(R.id.tvnameRecipeinday);
         rc = findViewById(R.id.rcRecipeinDay);
-//        firebaseDatabase = FirebaseDatabase.getInstance();
 
         Intent i = getIntent();
         tvtitle.setText(i.getStringExtra("tvtitle"));
         Picasso.get().load(i.getStringExtra("imgtitle")).into( imgtitle);
+        recipeModels = new ArrayList<>();
         ArrayList<String> recipeid =  i.getStringArrayListExtra("idrecipe");
-        foodAdapterVer = new FoodAdapterVer(recipeRepository.getRecipeList(recipeid.size(),recipeid),this);
-        foodAdapterVer.notifyDataSetChanged();
+        foodAdapterVer = new FoodAdapterVer(recipeModels,this);
+
         for(int j = 0;j<recipeid.size();j++){
-            DatabaseReference databaseReference;
+            DatabaseReference databaseReference = recipeRepository.getDatabaseReference().child(recipeid.get(j));
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull  DataSnapshot snapshot) {
@@ -71,6 +71,7 @@ public class RecipeinDay extends AppCompatActivity {
                 }
             });
         }
+
         rc.setAdapter(foodAdapterVer);
     }
 }

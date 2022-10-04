@@ -49,4 +49,14 @@ public class UserRepositoryImp implements IUserRepository{
         });
         return null;
     }
+
+    @Override
+    public DatabaseReference getRecentlyUser(String userName) {
+        return this.firebaseDatabase.getReference("User").child(userName).child("Recently");
+    }
+
+    @Override
+    public DatabaseReference getUserDb() {
+        return this.firebaseDatabase.getReference("User");
+    }
 }

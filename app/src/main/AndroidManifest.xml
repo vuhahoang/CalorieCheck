@@ -24,7 +24,7 @@
         <activity android:name=".Activitiy.Editprofile" />
         <activity android:name=".Activitiy.AddRecipeAdmin" />
         <activity android:name=".Activitiy.Inforecipe" />
-        <activity android:name=".Activitiy.learn2" />
+<!--        <activity android:name=".Activitiy.learn2" />-->
         <activity android:name=".Activitiy.learn1" />
         <activity android:name=".Activitiy.Notes" />
         <activity android:name=".Activitiy.FoodSave" />

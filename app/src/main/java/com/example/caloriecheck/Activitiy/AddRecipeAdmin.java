@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.caloriecheck.Model.Ingredients;
 import com.example.caloriecheck.Model.RecipeModel;
 import com.example.caloriecheck.R;
+import com.example.caloriecheck.Repository.IRecipeAdminRepository;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,14 +26,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class AddRecipeAdmin extends AppCompatActivity {
     EditText ed,tag,type;
     Button add,fun;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+//    FirebaseDatabase firebaseDatabase;
+//    DatabaseReference databaseReference;
+    @Inject
+    IRecipeAdminRepository recipeAdminRepository;
     ArrayList<RecipeModel> recipeModels;
     ArrayList<Ingredients> ingredients;
     String url1,url2;
@@ -48,8 +53,8 @@ public class AddRecipeAdmin extends AppCompatActivity {
         fun = findViewById(R.id.addforfun);
         tag = findViewById(R.id.edtaginaddrecipe);
         type = findViewById(R.id.edtypeinaddrecipe);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Recipe");
+//        firebaseDatabase = FirebaseDatabase.getInstance();
+//        databaseReference = firebaseDatabase.getReference("Recipe");
         recipeModels = new ArrayList<>();
         ingredients = new ArrayList<>();
         id = ed.getText().toString().trim();
@@ -105,7 +110,8 @@ public class AddRecipeAdmin extends AppCompatActivity {
                                 int fatint = Integer.parseInt(removeLastChar(fat));
                                 int pro = Integer.parseInt(removeLastChar(protein));
                                 RecipeModel recipeModel = new RecipeModel(calo,carb,fatint,idt,pro,rim,0,image,instructions,title,type.getText().toString(),tag.getText().toString(),ingredients);
-                                databaseReference.child(idt+"").setValue(recipeModel);
+                                recipeAdminRepository.addRecipe(recipeModel);
+//                                databaseReference.child(idt+"").setValue(recipeModel);
 
 
 

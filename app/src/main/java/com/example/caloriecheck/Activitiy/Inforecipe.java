@@ -20,6 +20,7 @@ import com.example.caloriecheck.Model.FoodModel;
 import com.example.caloriecheck.Model.Ingredients;
 import com.example.caloriecheck.Model.RecipeModel;
 import com.example.caloriecheck.R;
+import com.example.caloriecheck.Repository.I_InfoRecipeRepository;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +33,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -42,8 +45,10 @@ public class Inforecipe extends AppCompatActivity {
   ArrayList<Ingredients> ingredients;
   ArrayList<RecipeModel> recipeModels;
   FoodAdapterHor foodAdapterHor;
-  FirebaseDatabase firebaseDatabase;
-  DatabaseReference databaseReference,reference,DRgetsimilar;
+  @Inject
+  I_InfoRecipeRepository infoRecipeRepository;
+//  FirebaseDatabase firebaseDatabase;
+//  DatabaseReference databaseReference,reference,DRgetsimilar;
   ImageView imgtitle;
   Button btnadd;
   SharedPreferences sharedPreferences,sharedPreferencesdata;
@@ -73,9 +78,8 @@ public class Inforecipe extends AppCompatActivity {
         Intent i = getIntent();
         id = i.getIntExtra("keyid",0);
         getRecipeSimilar();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Recipe").child(id+"").child("ingredients");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference ingredientsReference = infoRecipeRepository.getDatabaseReference().child(id+"").child("ingredients");
+        ingredientsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
@@ -91,8 +95,8 @@ public class Inforecipe extends AppCompatActivity {
             }
         });
 
-        reference = firebaseDatabase.getReference("Recipe").child(id+"");
-        reference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference recipeReference = this.infoRecipeRepository.getDatabaseReference().child(id+"");
+        recipeReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
                 String img = snapshot.child("image").getValue(String.class);
@@ -116,7 +120,7 @@ public class Inforecipe extends AppCompatActivity {
         btnadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reference.addValueEventListener(new ValueEventListener() {
+                recipeReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull  DataSnapshot snapshot) {
                         String buaan;
@@ -187,14 +191,13 @@ public class Inforecipe extends AppCompatActivity {
     }
 
     private void getRecipeSimilar(){
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Recipe").child(id+"");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference recipeReference = this.infoRecipeRepository.getDatabaseReference().child(id+"");
+        recipeReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
                 String type =  snapshot.child("type").getValue(String.class);
-                DRgetsimilar = firebaseDatabase.getReference("Recipe");
-                DRgetsimilar.addValueEventListener(new ValueEventListener() {
+                DatabaseReference rootReference = infoRecipeRepository.getDatabaseReference();
+                rootReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for(DataSnapshot dataSnapshot : snapshot.getChildren()){

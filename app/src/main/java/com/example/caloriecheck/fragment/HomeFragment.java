@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.caloriecheck.CustomApdapter.PlanAdapter;
 import com.example.caloriecheck.Model.Plan;
 import com.example.caloriecheck.R;
-import com.example.caloriecheck.Activitiy.learn2;
+//import com.example.caloriecheck.Activitiy.learn2;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -74,8 +74,8 @@ public class HomeFragment extends Fragment {
         addplan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(),learn2.class);
-                startActivity(i);
+//                Intent i = new Intent(getContext(),learn2.class);
+//                startActivity(i);
             }
         });
 

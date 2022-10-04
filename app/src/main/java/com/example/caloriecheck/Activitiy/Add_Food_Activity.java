@@ -29,6 +29,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.caloriecheck.CustomApdapter.FoodAdapterCalo;
 import com.example.caloriecheck.Model.FoodModel;
 import com.example.caloriecheck.R;
+import com.example.caloriecheck.Repository.ICustomFoodRepository;
+import com.example.caloriecheck.Repository.IFoodRepository;
+import com.example.caloriecheck.Repository.IRecipeAdminRepository;
+import com.example.caloriecheck.Repository.IUserRepository;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -52,6 +56,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -69,6 +75,15 @@ public class Add_Food_Activity extends AppCompatActivity {
     ArrayList<FoodModel> foodModels1;
     SharedPreferences sharedPreferences;
     LinearLayout llback;
+
+    @Inject
+    IRecipeAdminRepository repository;
+    @Inject
+    ICustomFoodRepository customFoodRepository;
+    @Inject
+    IUserRepository userRepository;
+    @Inject
+    IFoodRepository foodRepository;
 
 
     @Override
@@ -145,10 +160,9 @@ public class Add_Food_Activity extends AppCompatActivity {
                     Toast.makeText(Add_Food_Activity.this,"Không được bỏ trống ô tìm kiếm",Toast.LENGTH_SHORT).show();
                     return;
                 }else {
-                    FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-                    DatabaseReference reference = rootNode.getReference("FoodCustoms");
-                    Query check = reference.orderByChild("name").equalTo(foodsearch);
-                    check.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    DatabaseReference reference = repository.getDatabaseInstance().getReference("FoodCustoms");
+//                    Query check = reference.orderByChild("name").equalTo(foodsearch);
+                    customFoodRepository.search(foodsearch).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
@@ -214,16 +228,15 @@ public class Add_Food_Activity extends AppCompatActivity {
         String nameUser = sharedPreferences.getString("username","error");
         Boolean check = sharedPreferences.getBoolean("checklogin",false);
         if (check){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("User").child(nameUser).child("Recently");
-            myRef.addValueEventListener(new ValueEventListener() {
+//            DatabaseReference myRef = repository.getDatabaseInstance().getReference("User").child(nameUser).child("Recently");
+            userRepository.getRecentlyUser(nameUser).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull  DataSnapshot snapshot) {
                     if(!snapshot.exists()){
                         tvthucpham1.setText("Phổ biến");
-                        FirebaseDatabase databasefood = FirebaseDatabase.getInstance();
-                        DatabaseReference myfood = databasefood.getReference("Foods");
-                        myfood.addValueEventListener(new ValueEventListener() {
+//                        FirebaseDatabase databasefood = FirebaseDatabase.getInstance();
+//                        DatabaseReference myfood = databasefood.getReference("Foods");
+                        foodRepository.getFoodDb().addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull  DataSnapshot snapshot) {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
@@ -263,9 +276,9 @@ public class Add_Food_Activity extends AppCompatActivity {
             });
         }else {
             tvthucpham1.setText("Phổ biến");
-            FirebaseDatabase databasefood = FirebaseDatabase.getInstance();
-            DatabaseReference myfood = databasefood.getReference("Foods");
-            myfood.addValueEventListener(new ValueEventListener() {
+//            FirebaseDatabase databasefood = FirebaseDatabase.getInstance();
+//            DatabaseReference myfood = databasefood.getReference("Foods");
+            foodRepository.getFoodDb().addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull  DataSnapshot snapshot) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()){
@@ -309,16 +322,8 @@ public class Add_Food_Activity extends AppCompatActivity {
                             @Override
                             public void onSuccess(String s) {
                                 Log.d("NameEn",s);
-                                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference myRef = database.getReference("User");
-
-
-
-
-
-
-
-
+//                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                                DatabaseReference myRef = database.getReference("User");
                                 RequestQueue requestQueue = Volley.newRequestQueue(Add_Food_Activity.this);
                                 String url = "https://api.calorieninjas.com/v1/nutrition?query= 100gr " + s;
 
@@ -339,7 +344,7 @@ public class Add_Food_Activity extends AppCompatActivity {
                                                 FoodModel foodModelci = new FoodModel(source,jsonObject1.getString("calories"),jsonObject1.getString("protein_g"),jsonObject1.getString("carbohydrates_total_g"),jsonObject1.getString("fat_total_g"),"100");
                                                 sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
                                                 String nameUser = sharedPreferences.getString("username","error");
-                                                myRef.child(nameUser).child("Recently").child(source).setValue(foodModelci);
+                                                userRepository.getUserDb().child(nameUser).child("Recently").child(source).setValue(foodModelci);
                                                 foodModels1.add(foodModelci);
                                                 foodAdapterCalo.notifyDataSetChanged();
                                                 rc1.setAdapter(foodAdapterCalo1);
