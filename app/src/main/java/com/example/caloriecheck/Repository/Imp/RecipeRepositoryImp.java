@@ -27,6 +27,7 @@ public class RecipeRepositoryImp implements IRecipeRepository {
     @Override
     public ArrayList<RecipeModel> getRecipeList(int size, List<String> idRecipes) {
         databaseReference = firebaseDatabase.getReference("Recipe");
+
         ArrayList<RecipeModel> recipeModelList = new ArrayList<>();
         for(int j = 0;j<size;j++){
             databaseReference = databaseReference.child(idRecipes.get(j));

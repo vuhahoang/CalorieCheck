@@ -39,9 +39,14 @@ public class FoodAdapterVer extends RecyclerView.Adapter<FoodAdapterVer.ViewHold
     @Override
     public void onBindViewHolder(@NonNull FoodAdapterVer.ViewHolder holder, int position) {
         RecipeModel recipeModel = recipeModels.get(position);
-        holder.tvname.setText("Name: " +recipeModel.getTitle());
+        if(recipeModel.getTitle()==null){
+            holder.tvname.setText("Name: Ngày"+position+1);
+        }else {
+            holder.tvname.setText("Name: " +recipeModel.getTitle());
+        }
+
         holder.tvtime.setText("Time: " + recipeModel.getRim()+" phút");
-        holder.tvlever.setText("Lever: Dễ");
+        holder.tvlever.setText("Level: Dễ");
         holder.tvkcal.setText("Calorie: " + recipeModel.getCalorie()+" kcal");
         Picasso.get().load(recipeModel.getImage()).into(holder.img);
         holder.cvlayout.setOnClickListener(new View.OnClickListener() {

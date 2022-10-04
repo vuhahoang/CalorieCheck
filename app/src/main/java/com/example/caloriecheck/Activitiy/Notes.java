@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.caloriecheck.Model.Diary;
 import com.example.caloriecheck.R;
+import com.example.caloriecheck.Repository.INoteRepository;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -40,15 +41,19 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class Notes extends AppCompatActivity {
     TextView tvday;
     EditText edcontent;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    SharedPreferences sharedPreferences;
+//    FirebaseDatabase firebaseDatabase;
+//    DatabaseReference databaseReference;
+//    SharedPreferences sharedPreferences;
+    @Inject
+    INoteRepository noteRepository;
     String day,month,year,today;
     Button btnadd;
     ImageView imgnote,imgback;
@@ -104,10 +109,10 @@ public class Notes extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(edcontent.getText().toString().equals("")){
-                    Toast.makeText(Notes.this,"Nội dung không được để chống",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Notes.this,"Nội dung không được để trống",Toast.LENGTH_SHORT).show();
 
                 }else {
-                    getData();
+                    noteRepository.addNote(getSharedPreferences("User",MODE_PRIVATE),new Diary(day,month,year,today,edcontent.getText().toString()));
                     Toast.makeText(Notes.this,"Đã thêm",Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
@@ -146,14 +151,14 @@ public class Notes extends AppCompatActivity {
         return day  + month;
     }
 
-    private void getData(){
-        sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("User");
-        String username = sharedPreferences.getString("username","");
-        Diary diary = new Diary(day,month,year,today,edcontent.getText().toString());
-        databaseReference.child(username).child("Notes").child(day +month).setValue(diary);
-    }
+//    private void getData(){
+//        sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
+//        firebaseDatabase = FirebaseDatabase.getInstance();
+//        databaseReference = firebaseDatabase.getReference("User");
+//        String username = sharedPreferences.getString("username","");
+//        Diary diary = new Diary(day,month,year,today,edcontent.getText().toString());
+//        databaseReference.child(username).child("Notes").child(day +month).setValue(diary);
+//    }
 
     private void pickImageFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);

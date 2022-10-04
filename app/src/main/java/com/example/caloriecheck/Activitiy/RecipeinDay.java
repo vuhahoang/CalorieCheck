@@ -55,22 +55,22 @@ public class RecipeinDay extends AppCompatActivity {
         ArrayList<String> recipeid =  i.getStringArrayListExtra("idrecipe");
         foodAdapterVer = new FoodAdapterVer(recipeRepository.getRecipeList(recipeid.size(),recipeid),this);
         foodAdapterVer.notifyDataSetChanged();
-//        for(int j = 0;j<recipeid.size();j++){
-//            databaseReference = firebaseDatabase.getReference("Recipe").child(recipeid.get(j));
-//            databaseReference.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull  DataSnapshot snapshot) {
-//                    RecipeModel recipeModel = snapshot.getValue(RecipeModel.class);
-//                    recipeModels.add(recipeModel);
-//                    foodAdapterVer.notifyDataSetChanged();
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull  DatabaseError error) {
-//
-//                }
-//            });
-//        }
+        for(int j = 0;j<recipeid.size();j++){
+            DatabaseReference databaseReference;
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                    RecipeModel recipeModel = snapshot.getValue(RecipeModel.class);
+                    recipeModels.add(recipeModel);
+                    foodAdapterVer.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull  DatabaseError error) {
+
+                }
+            });
+        }
         rc.setAdapter(foodAdapterVer);
     }
 }
