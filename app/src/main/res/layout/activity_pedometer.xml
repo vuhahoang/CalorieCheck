@@ -84,29 +84,33 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView54"
+        android:id="@+id/steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="290dp"
         android:text="Số bước"
+        android:textSize="45sp"
         android:textColor="@color/black"
-        android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topcustomfood" />
-
-    <EditText
-        android:id="@+id/Edpedometer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:inputType="number"
-        android:hint="Nhập số bước bạn đi trong ngày"
-        android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView54" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Text View for the step count-->
+    <TextView
+        android:id="@+id/tv_stepsTaken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="30dp"
+        android:text="0"
+        android:textSize="37sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/steps" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -116,7 +120,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:id="@+id/botpedometer">
+        android:id="@+id/botpedometer"
+        android:visibility="visible">
 
 
 
@@ -132,7 +137,18 @@
             android:text="Thêm"
             android:textColor="@color/white"
             app:backgroundTint="@color/blue"
+            android:visibility="gone"
             />
+
+        <TextView
+            android:id="@+id/tvCaloOut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Calorie Đã đốt: "
+            android:textSize="16sp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"/>
 
 
     </LinearLayout>

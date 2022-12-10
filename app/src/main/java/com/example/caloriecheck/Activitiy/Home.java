@@ -21,6 +21,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Home extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     TextView tdee;
     double r;
@@ -69,6 +72,14 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         Fragment fragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout,fragment).commit();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String dateToday = sdf.format(new Date());
+        Preferences.setTimeToday(this,dateToday);
+
+        if (!dateToday.equals(Preferences.getTimeToday(this))) {
+            Preferences.clearStepCount(this);
+        }
 
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
