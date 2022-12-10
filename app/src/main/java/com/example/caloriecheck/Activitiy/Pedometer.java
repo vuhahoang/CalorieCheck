@@ -73,10 +73,8 @@ public class Pedometer extends AppCompatActivity {
 
 
 
-            // Mark Service as Started
-            Preferences.setServiceRun(this, false);
 
-            // Start Step Counting service
+            Preferences.setServiceRun(this, false);
             Intent serviceIntent = new Intent(this, StepCounter.class);
             startService(serviceIntent);
 
